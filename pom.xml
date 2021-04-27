@@ -50,6 +50,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency> <!-- Validaciones para meter en el Objeto de Hibernate (repository) o en el DTO (para el Api Rest) -->
+    		<groupId>org.springframework.boot</groupId> 
+    		<artifactId>spring-boot-starter-validation</artifactId> 
+		</dependency>
+		
 	</dependencies>
 
 	<build>
