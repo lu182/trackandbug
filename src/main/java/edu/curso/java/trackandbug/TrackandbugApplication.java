@@ -8,7 +8,7 @@ public class TrackandbugApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TrackandbugApplication.class, args);
-		System.out.println("Probando commit.....");
+		
 	}
 
 }
