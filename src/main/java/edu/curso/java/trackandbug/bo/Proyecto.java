@@ -18,15 +18,20 @@ public class Proyecto {
 	
 	private Integer horasTotales; 
 	
-	@ManyToOne 
+	@ManyToOne //varios proyectos un responsable, es el mismo usuario que va estar en varios proyectos --ok
 	private Usuario usuarioResponsable; //fk dentro de la misma tabla -- 1 proyecto tiene 1 usuario responsable
 	
-	@OneToMany //1 proyecto tiene muchas tareas (fk_proyecto_id)
+	@OneToMany //1 proyecto tiene muchas tareas (fk_proyecto_id) - Una misma tarea va a tener muchos proyectos
 	@JoinColumn(name = "PROYECTO_ID") //nombre de la FK que quiero que me genere en la tabla Tareas para hacer la unión y no se genere tabla intermedia
 	private List<Tarea> tareasProyecto = new ArrayList<Tarea>(); 
 	
-	@ManyToMany
+	@ManyToMany //varios proyectos, varios usuarios
 	private List<Usuario> usuarios = new ArrayList<Usuario>(); //fk -- 1 proyecto tiene varios usuarios/varios usuarios 1 proyecto
+	
+		
+	//es el mismo usuario que va estar en varios proyectos
+	//1 proyecto varios usuarios asignados
+	//1 asgnado va estar e varios proyectos? si (no lepongo onetomany)
 	
 	
 	//GETTERS & SETTERS:

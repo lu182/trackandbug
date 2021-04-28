@@ -17,8 +17,15 @@ public class Usuario {
 	@Column(nullable = false, length = 200)
 	private String apellidoUsuario;
 	
-	@ManyToMany(mappedBy = "usuarios")
+	@ManyToOne
+	private Usuario usuarioResponsable; //nuevo
+	
+	@ManyToMany(mappedBy = "usuarios") //ok
 	private List<Tarea> tareas = new ArrayList<Tarea>();
+	
+	//varios usuarios, varios proyectos -- nuevo
+	@ManyToMany(mappedBy = "usuarios")
+	private List<Proyecto> proyectos = new ArrayList<Proyecto>();
 	
 	
 	//GETTERS & SETTERS
@@ -52,6 +59,21 @@ public class Usuario {
 
 	public void setTareas(List<Tarea> tareas) {
 		this.tareas = tareas;
+	}
+	public Usuario getUsuarioResponsable() {
+		return usuarioResponsable;
+	}
+
+	public void setUsuarioResponsable(Usuario usuarioResponsable) {
+		this.usuarioResponsable = usuarioResponsable;
+	}
+
+	public List<Proyecto> getProyectos() {
+		return proyectos;
+	}
+
+	public void setProyectos(List<Proyecto> proyectos) {
+		this.proyectos = proyectos;
 	}
 	
 	
