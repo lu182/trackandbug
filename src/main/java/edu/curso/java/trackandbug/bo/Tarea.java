@@ -16,7 +16,8 @@ public class Tarea {
 	
 	private Integer horasAsignadas;
 	
-	@OneToMany
+	@OneToMany //1 tarea muchos comentarios
+	@JoinColumn(name = "TAREA_ID") ////nombre de la FK que quiero que me genere en la tabla Comentarios para hacer la unión y no se genere tabla intermedia
 	private List<Comentario> comentarios = new ArrayList<Comentario>();
 	
 	@ManyToOne

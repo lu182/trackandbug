@@ -1,6 +1,8 @@
 package edu.curso.java.trackandbug.bo;
 
 import javax.persistence.*;
+
+
 import java.util.*;
 
 @Entity
@@ -16,14 +18,15 @@ public class Proyecto {
 	
 	private Integer horasTotales; 
 	
-	@ManyToOne
-	private Usuario usuarioResponsable;
+	@ManyToOne 
+	private Usuario usuarioResponsable; //fk dentro de la misma tabla -- 1 proyecto tiene 1 usuario responsable
 	
-	@OneToMany
-	private List<Tarea> tareasProyecto = new ArrayList<Tarea>();
+	@OneToMany //1 proyecto tiene muchas tareas (fk_proyecto_id)
+	@JoinColumn(name = "PROYECTO_ID") //nombre de la FK que quiero que me genere en la tabla Tareas para hacer la unión y no se genere tabla intermedia
+	private List<Tarea> tareasProyecto = new ArrayList<Tarea>(); 
 	
 	@ManyToMany
-	private List<Usuario> usuarios = new ArrayList<Usuario>();
+	private List<Usuario> usuarios = new ArrayList<Usuario>(); //fk -- 1 proyecto tiene varios usuarios/varios usuarios 1 proyecto
 	
 	
 	//GETTERS & SETTERS:
