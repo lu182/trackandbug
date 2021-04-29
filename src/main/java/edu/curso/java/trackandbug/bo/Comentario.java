@@ -17,10 +17,10 @@ public class Comentario {
 	private Date fecha = new Date();
 	
 	@ManyToOne
-	private Usuario usuario;
+	private Usuario usuario; //fk
 	
 	@ManyToOne
-	private Tarea tarea;
+	private Tarea tarea; //fk
 
 	
 	//GETTERS & SETTERS:

@@ -16,7 +16,8 @@ public class Proyecto {
 	@Column(nullable = false, length = 200) //No soporta nulos
 	private String nombre;
 	
-	private Integer horasTotales; 
+	private Integer horasTotales; //horas asignadas
+	
 	
 	@ManyToOne //varios proyectos un responsable, es el mismo usuario que va estar en varios proyectos --ok
 	private Usuario usuarioResponsable; //fk dentro de la misma tabla -- 1 proyecto tiene 1 usuario responsable

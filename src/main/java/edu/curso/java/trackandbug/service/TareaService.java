@@ -5,9 +5,19 @@ import java.util.*;
 import edu.curso.java.trackandbug.bo.Tarea;
 
 /////////////////// CAPA DE NEGOCIO O SERVICIO (BUSINESS LOGIC LAYER)  //////////////////////////
-//En esta clase que es una INTERFAZ sólo defino en métodos, los métodos definidos en la clase TareaRepository.
 
-public interface TareaService { //INTERFAZ que luego implementa la clase TareaServiceImp
+
+public interface TareaService { 
 
 	//MÉTODOS
+	
+	public Tarea buscarTareaPorId(Long idTarea);
+	public List<Tarea> buscarTareas();
+	public List<Tarea> buscadorDeTareas(String nombre);	
+	public List<Tarea> buscadorDeTareas(String nombre, Long idTipoTarea, Long idEstadoTarea);	
+	public Long guardarTarea(Tarea tarea); //tarea sóla. -- throws TareaException
+	public Long guardarTarea(Tarea tarea, Long idTipoTarea, Long idEstadoTarea, Long idComentario, Long idUsuario); //-- throws TareaException
+	public void actualizarTarea(Tarea tarea);
+	public void borrarTarea(Long idTarea);
+	
 }

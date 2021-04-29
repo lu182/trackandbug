@@ -2,12 +2,29 @@ package edu.curso.java.trackandbug.service;
 
 import java.util.*;
 
+
 import edu.curso.java.trackandbug.bo.Proyecto;
 
          /////////////////// CAPA DE NEGOCIO O SERVICIO (BUSINESS LOGIC LAYER)  //////////////////////////
-       //En esta clase que es una INTERFAZ sólo defino en métodos, los métodos definidos en la clase ProyectoRepository.
+       
 
-public interface ProyectoService {    //INTERFAZ que luego implementa la clase ProyectoServiceImp
+public interface ProyectoService {   	
 	
 	//MÉTODOS
+	
+	public Proyecto buscarProyectoPorId(Long idProyecto);
+	public List<Proyecto> buscarProyectos();
+	public List<Proyecto> buscadorDeProyectos(String nombre);	
+	public Long guardarProyecto(Proyecto proyecto); //proyecto sólo. -- throws ProyectoException
+	public Long guardarProyecto(Proyecto proyecto, Long idTarea, Long idUsuario); //-- throws ProyectoException
+	public void actualizarProyecto(Proyecto proyecto);
+	public void borrarProyecto(Long idProyecto);
+	
+	
+	
+	
+	
+	
+	
+	
 }
