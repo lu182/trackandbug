@@ -20,70 +20,78 @@ public class ProyectoDTO {
 	private Integer horasProyecto;
 	
 	private Long idUsuarioResponsable;
+	
+	@NotBlank(message = "Falta completar el nombre del usuario responsable del proyecto")
 	private String nombreUsuarioResponsable;
 	
-	//private Long idTarea;
-	//private String nombreTarea; //las tareas no las llamo acá	
-	//private UsuarioDTO usuarioDtoResponsable;	
-	//private TareaDTO tareaDto; //pero si no llamamos las tareasDTO, como macheo "todas las tareas de ese proyecto por id" para el endpoint del RestController
 	
 	
 	public ProyectoDTO() {
 		
 	};
 	
+
 	public ProyectoDTO(Proyecto p) {
 		this.idProyectoDto = p.getIdProyecto();
 		this.nombre = p.getNombre();
-		this.horasProyecto = p.getHorasTotales();		
-		Usuario usuario = p.getUsuarioResponsable(); 
-			if(usuario != null) { //para que no se rompa la Api
-				this.idUsuarioResponsable = usuario.getIdUsuario();
-				this.nombreUsuarioResponsable = usuario.getNombreUsuario();
-			}			
+		if(p.getUsuarioResponsable() != null) {
+			this.idUsuarioResponsable = p.getUsuarioResponsable().getIdUsuario();
+			this.nombreUsuarioResponsable = p.getUsuarioResponsable().getNombreUsuario();
+		}
+		this.horasProyecto = p.getHorasTotales();
 	}
-	
-	//GETTERS Y SETTERS:
+
+
 	public Long getIdProyectoDto() {
 		return idProyectoDto;
 	}
+
 
 	public void setIdProyectoDto(Long idProyectoDto) {
 		this.idProyectoDto = idProyectoDto;
 	}
 
+
 	public String getNombre() {
 		return nombre;
 	}
+
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
+
 	public Integer getHorasProyecto() {
 		return horasProyecto;
 	}
+
 
 	public void setHorasProyecto(Integer horasProyecto) {
 		this.horasProyecto = horasProyecto;
 	}
 
+
 	public Long getIdUsuarioResponsable() {
 		return idUsuarioResponsable;
 	}
+
 
 	public void setIdUsuarioResponsable(Long idUsuarioResponsable) {
 		this.idUsuarioResponsable = idUsuarioResponsable;
 	}
 
+
 	public String getNombreUsuarioResponsable() {
 		return nombreUsuarioResponsable;
 	}
 
+
 	public void setNombreUsuarioResponsable(String nombreUsuarioResponsable) {
 		this.nombreUsuarioResponsable = nombreUsuarioResponsable;
 	}
-			
+	
+	
 	
 	
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import edu.curso.java.trackandbug.bo.*;
 import edu.curso.java.trackandbug.repository.*;
 
@@ -39,14 +40,7 @@ public class TareaServiceImp implements TareaService {
 		return tareaRepository.buscarTareas();
 	}
 
-	@Override
-	public List<Tarea> buscadorDeTareas(String nombre) {
-		
-		return tareaRepository.buscadorDeTareas(nombre);
-		
-	}
-
-	@Override
+		@Override
 	public Long guardarTarea(Tarea tarea) {
 		
 		tareaRepository.save(tarea);
@@ -73,6 +67,19 @@ public class TareaServiceImp implements TareaService {
 		Tarea tarea = tareaRepository.findById(idTarea).get();
 		Integer horas = tarea.getHorasAsignadas();
 		return horas;
+	}
+
+	@Override    //FALTA COMPLETAR (La query ya esta hecha en el TareaRepository)
+	public List<Tarea> buscadorDeTareasPorTipo(Long idTarea, Long idTipoTarea) {
+		
+		return null; //return tareaRepository.buscadorDeTareasPorTipo(idTarea, idTipoTarea);
+	}
+	
+	
+	@Override //FALTA COMPLETAR(La query ya esta hecha en el TareaRepository)
+	public List<Tarea> buscadorDeTareasPorEstado(Long idTarea, Long idEstadoTarea) {
+		
+		return null; ////return tareaRepository.buscadorDeTareasPorEstado(idTarea, idEstadoTarea);
 	}
 	
 	

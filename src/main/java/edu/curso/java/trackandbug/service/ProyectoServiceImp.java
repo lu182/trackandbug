@@ -51,7 +51,7 @@ public class ProyectoServiceImp implements ProyectoService {
 		return proyectoRepository.buscarProyectos();
 		
 	}
-
+	
 	@Override
 	public List<Proyecto> buscadorDeProyectos(String nombre) {
 		
@@ -92,22 +92,20 @@ public class ProyectoServiceImp implements ProyectoService {
 		return tareas;	//devuelve lista de tareas de ese proyecto
 		
 	}
-
+	
 	//muchos usuarios muchos proyectos - Usuarios asignados a ese proyecto
-		 //Asignar usuarios a un proyecto/los proyectos --> /proyectos/{idProyecto}/agregar-usuario/{idUsuario}
+		 //Asignar usuarios a un proyecto/los proyectos --> /proyectos/{idProyecto}/agregar-usuario/{idUsuario} (cuando inyectas el service en el restcontroller)
 	@Override
-	public List<Usuario> usuariosProyecto(Long idProyecto, Long idUsuario) { 
-		Proyecto proyecto = proyectoRepository.findById(idProyecto).get();  //obtengo idProyecto		
-		//Usuario usuario = usuarioRepository.findById(idUsuario).get(); //obtengo idUsuario
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		for (Usuario u : proyecto.getUsuarios()) {
-			usuarios.add(u);
-		}
-		
-		return usuarios;   //devuelve lista de usuarios de ese proyecto
-		
+	public void agregarUsuarioProyecto(Long idProyecto, Long idUsuario) {
+	Proyecto proyecto = proyectoRepository.findById(idProyecto).get();
+	Usuario usuario = usuarioRepository.findById(idUsuario).get();
+	proyecto.getUsuarios().add(usuario);
+	usuario.getProyectos().add(proyecto);
+	proyectoRepository.save(proyecto);
+	usuarioRepository.save(usuario);
+	
 	}
-
+	
 	@Override
 	public Integer consultarHorasTotales(Long idProyecto) {
 		Proyecto proyecto = proyectoRepository.findById(idProyecto).get();
@@ -115,6 +113,8 @@ public class ProyectoServiceImp implements ProyectoService {
 		
 		return horas;
 	}
+	
+
 	
 	
 		

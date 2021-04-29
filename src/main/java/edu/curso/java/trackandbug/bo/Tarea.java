@@ -12,7 +12,7 @@ public class Tarea {
 	@GeneratedValue
 	private Long idTarea;
 	
-	private String nombreTarea; //ver
+	//private String nombreTarea; //NO VA
 	
 	private Integer horasAsignadas;
 	
@@ -37,14 +37,6 @@ public class Tarea {
 
 	public void setIdTarea(Long idTarea) {
 		this.idTarea = idTarea;
-	}
-
-	public String getNombreTarea() {
-		return nombreTarea;
-	}
-
-	public void setNombreTarea(String nombreTarea) {
-		this.nombreTarea = nombreTarea;
 	}
 
 	public Integer getHorasAsignadas() {
@@ -92,7 +84,6 @@ public class Tarea {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((idTarea == null) ? 0 : idTarea.hashCode());
-		result = prime * result + ((nombreTarea == null) ? 0 : nombreTarea.hashCode());
 		return result;
 	}
 
@@ -110,14 +101,14 @@ public class Tarea {
 				return false;
 		} else if (!idTarea.equals(other.idTarea))
 			return false;
-		if (nombreTarea == null) {
-			if (other.nombreTarea != null)
-				return false;
-		} else if (!nombreTarea.equals(other.nombreTarea))
-			return false;
 		return true;
 	}
 
+	
+	
+
+	
+	
 
 	
 	

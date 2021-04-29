@@ -83,7 +83,6 @@ public class Proyecto {
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
-	
 
 	@Override
 	public int hashCode() {
@@ -115,6 +114,8 @@ public class Proyecto {
 			return false;
 		return true;
 	}
+	
+
 	
 	
 	

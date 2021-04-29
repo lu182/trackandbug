@@ -14,8 +14,14 @@ public interface TareaRepository extends CrudRepository<Tarea, Long> {
 
 	//QUERYS
 	
-	@Query(value = "from Tarea t where t.nombreTarea like :nombreTarea")
-	public List<Tarea> buscadorDeTareas(@Param("nombreTarea") String nombre);
+	//VER SI FUNCIONA
+	//@Query(value = "from TipoTarea tt, Tarea t where tt.idTipoTarea like :idTipoTarea and t.idTarea like :idTarea")
+//public List<Tarea> buscadorDeTareasPorTipo(@Param(value = "idTarea")Long idTarea, @Param(value = "idTipoTarea")Long idTipoTarea);
+	//select nombre_tipo_tarea from tipos_tareas tt, tareas t where tt.id_tipo_tarea = t.id_tarea;
+	
+	//VER SI FUNCIONA
+	//@Query(value = "from EstadoTarea et, Tarea t where et.idEstadoTarea like :idEstadoTarea and t.idTarea like :idTarea")
+	//public List<Tarea> buscadorDeTareasPorEstado(@Param(value = "idTarea")Long idTarea, @Param(value = "idEstadoTarea")Long idEstadoTarea);
 	
 	@Query(value = "from Tarea t")
 	public List<Tarea> buscarTareas();	
