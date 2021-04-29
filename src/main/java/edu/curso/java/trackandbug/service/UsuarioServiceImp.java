@@ -18,54 +18,51 @@ public class UsuarioServiceImp implements UsuarioService {
 	@Autowired   //inyecto
 	private UsuarioRepository usuarioRepository; //Llamo al UsuarioRepository para que me brinde métodos propios que hereda del CrudRepository + lo que haya hecho en el repository
 
+	@Autowired   
+	private TareaRepository tareaRepository; 
+	
+	@Autowired
+	private ProyectoRepository proyectoRepository;
 	
 	
 	
 	@Override
 	public Usuario buscarUsuarioPorId(Long idUsuario) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return usuarioRepository.findById(idUsuario).get();
 	}
 
 	@Override
 	public List<Usuario> buscarUsuarios() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return usuarioRepository.buscarUsuarios();
 	}
 
 	@Override
 	public List<Usuario> buscadorDeUsuarios(String nombre) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Usuario> buscadorDeUsuarios(String nombre, Long idProyecto) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return usuarioRepository.buscadorDeUsuarios(nombre);
 	}
 
 	@Override
 	public Long guardarUsuario(Usuario usuario) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		usuarioRepository.save(usuario);
+		return usuario.getIdUsuario();
 	}
 
-	@Override
-	public Long guardarUsuario(Usuario usuario, Long idTarea, Long idProyecto, Long idComentario) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void actualizarUsuario(Usuario usuario) {
-		// TODO Auto-generated method stub
+		
+		usuarioRepository.save(usuario);
 		
 	}
 
 	@Override
 	public void borrarUsuario(Long idUsuario) {
-		// TODO Auto-generated method stub
+		
+		usuarioRepository.deleteById(idUsuario);
 		
 	}
 
