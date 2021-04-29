@@ -72,14 +72,14 @@ public class TareaServiceImp implements TareaService {
 	@Override    //FALTA COMPLETAR (La query ya esta hecha en el TareaRepository)
 	public List<Tarea> buscadorDeTareasPorTipo(Long idTarea, Long idTipoTarea) {
 		
-		return null; //return tareaRepository.buscadorDeTareasPorTipo(idTarea, idTipoTarea);
+		return tareaRepository.buscadorDeTareasPorTipo(idTarea, idTipoTarea);
 	}
 	
 	
 	@Override //FALTA COMPLETAR(La query ya esta hecha en el TareaRepository)
 	public List<Tarea> buscadorDeTareasPorEstado(Long idTarea, Long idEstadoTarea) {
 		
-		return null; ////return tareaRepository.buscadorDeTareasPorEstado(idTarea, idEstadoTarea);
+		return tareaRepository.buscadorDeTareasPorEstado(idTarea, idEstadoTarea);
 	}
 	
 	
