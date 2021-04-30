@@ -12,8 +12,10 @@ public class UsuarioDTO {
 	@NotBlank(message = "Falta completar el nombre del usuario")
 	private String nombreUsuarioDTO;
 
+	private Long usuarioResponsableId; //fk dentro de Usuarios
 	
 	
+
 	public Long getIdUsuarioDto() {
 		return idUsuarioDto;
 	}
@@ -28,6 +30,14 @@ public class UsuarioDTO {
 
 	public void setNombreUsuarioDTO(String nombreUsuarioDTO) {
 		this.nombreUsuarioDTO = nombreUsuarioDTO;
+	}
+
+	public Long getUsuarioResponsableId() {
+		return usuarioResponsableId;
+	}
+
+	public void setUsuarioResponsableId(Long usuarioResponsableId) {
+		this.usuarioResponsableId = usuarioResponsableId;
 	}
 	
 	

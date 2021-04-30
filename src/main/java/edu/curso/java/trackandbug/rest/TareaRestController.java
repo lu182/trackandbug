@@ -31,4 +31,11 @@ public class TareaRestController {
 
 	//GET-POST-PUT-DELETE + Inyeccion de dependencias de las interfaces de servicios
 	
+	@Autowired 
+	ProyectoService proyectoService;
+	
+	@Autowired
+	UsuarioService usuarioService;
+	
+	
 }

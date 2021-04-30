@@ -14,15 +14,15 @@ public class ProyectoDTO {
 
 	private Long idProyectoDto;
 	
-	//@NotBlank(message = "Falta completar el nombre del proyecto")
+	@NotBlank(message = "Falta completar el nombre del proyecto")
 	private String nombre;
 	
 	private Integer horasProyecto;
 	
-	private Long idUsuarioResponsable; //poner el UsuarioDTO
+	private Long idUsuarioResponsable; 
 	
-	//@NotBlank(message = "Falta completar el nombre del usuario responsable del proyecto")
-	private String nombreUsuarioResponsable; //poner el UsuarioDTO
+	@NotBlank(message = "Falta completar el nombre del usuario responsable del proyecto")
+	private String nombreUsuarioResponsable; 
 	
 	
 	

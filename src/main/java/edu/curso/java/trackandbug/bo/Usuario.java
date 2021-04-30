@@ -18,7 +18,7 @@ public class Usuario {
 	private String apellidoUsuario;
 	
 	@ManyToOne
-	private Usuario usuarioResponsable; //nuevo
+	private Usuario usuarioResponsable; //fk dentro de Usuarios
 	
 	@ManyToMany(mappedBy = "usuarios") //ok
 	private List<Tarea> tareas = new ArrayList<Tarea>();
