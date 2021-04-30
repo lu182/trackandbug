@@ -80,6 +80,15 @@ public ResponseEntity<ProyectoDTO> buscarProyectoPorId(@PathVariable Long id){
 		
 	}
 	
+	//GET  //  http://localhost:8085/proyectos/161/horas-totales -- 404 Not Found
+	@GetMapping(path = "/proyectos/{idProyecto}/horas-totales") //ver si va horas-totales
+	public ResponseEntity<Long> consultarHorasTotalesProyecto(@PathVariable Long idProyecto){
+		
+		proyectoService.consultarHorasTotales(idProyecto);
+		return ResponseEntity.ok(idProyecto);  // --------------- FALTA PROBAR 404 Not Found
+	}
+	
+
 	
 	//POST	
 	@PostMapping //http://localhost:8085/proyectos + Headers (Accept-applicationJson | Content-Type-applicationJson) + Body raw ----> FUNCIONA OK 201 Created
@@ -93,7 +102,18 @@ public ResponseEntity<ProyectoDTO> buscarProyectoPorId(@PathVariable Long id){
 	
 	       return ResponseEntity.status(HttpStatus.CREATED).body(proyectoDTO);
 	}
-		
+	
+	//Me lo crea, pero cuando devuelvo los proyectos: las horas, el idUsuarioResponsable y el nombreUsuarioResp me tira null
+	
+	/*		{
+	        "idProyectoDto": 1,
+	        "nombre": "Prueba", 
+	        "horasProyecto": 2,
+	        "idUsuarioResponsable": 1,
+	        "nombreUsuarioResponsable": "Luciana" / // VER POR QUÉ TIRA NULL AL CONSULTAR(GET) EL PROYECTO CREADO
+	      	}
+	*/
+	
 	//PUT
 	//ACTUALIZAR //Para hacer PUT podes combinar @PathVariable Long id (para enviarle el id por Url) y @RequestBody para enviarle el dato/los datos por el BODY.
 	@PutMapping(path = "/{id}")	 // http://localhost:8085/proyectos/123 + Header + Body  --FUNCIONA OK -- devuelve 204 No Content
@@ -119,7 +139,16 @@ public ResponseEntity<ProyectoDTO> buscarProyectoPorId(@PathVariable Long id){
 	}
 	
 	
-	
+	//PUT //Asignar un usuario al proyecto - http://localhost:8085/proyectos/123/agregar-usuario/1 -- 404 Not Found	
+	@PutMapping(path = "proyectos/{idProyecto}/agregar-usuario/{idUsuario}")
+	public ResponseEntity<Long> agregarUsuarioProyecto(@PathVariable Long idProyecto, @RequestParam Long idUsuario){
+		
+		proyectoService.agregarUsuarioProyecto(idProyecto, idUsuario);
+		
+		ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		
+		return ResponseEntity.ok(idProyecto); // ----------------------- FALTA PROBAR 404 Not Found
+	}
 	
 	
 	

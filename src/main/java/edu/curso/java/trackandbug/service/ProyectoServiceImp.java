@@ -106,10 +106,10 @@ public class ProyectoServiceImp implements ProyectoService {
 		
 	}
 	
-	//muchos usuarios muchos proyectos - Usuarios asignados a ese proyecto
+	//muchos usuarios muchos proyectos - Usuarios asignados a ese proyecto public void agregarUsuarioProyecto(Long idProyecto, Long idUsuario)
 		 //Asignar usuarios a un proyecto/los proyectos --> /proyectos/{idProyecto}/agregar-usuario/{idUsuario} (cuando inyectas el service en el restcontroller)
 	@Override
-	public void agregarUsuarioProyecto(Long idProyecto, Long idUsuario) {
+	public void agregarUsuarioProyecto(Long idProyecto, Long idUsuario) {  ////Ok En Rest y postman
 	Proyecto proyecto = proyectoRepository.findById(idProyecto).get();
 	Usuario usuario = usuarioRepository.findById(idUsuario).get();
 	proyecto.getUsuarios().add(usuario);
@@ -120,7 +120,7 @@ public class ProyectoServiceImp implements ProyectoService {
 	}
 	
 	@Override
-	public Integer consultarHorasTotales(Long idProyecto) {
+	public Integer consultarHorasTotales(Long idProyecto) {  //Ok En Rest y postman
 		Proyecto proyecto = proyectoRepository.findById(idProyecto).get();
 		Integer horas = proyecto.getHorasTotales();
 		
