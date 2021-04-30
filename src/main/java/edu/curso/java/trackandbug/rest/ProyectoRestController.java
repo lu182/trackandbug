@@ -43,10 +43,10 @@ public class ProyectoRestController {
 	
 	
 	//GET
-	@GetMapping(path = "/{id}")       //http://localhost:8085/proyectos/1234 ó cualquier ID	
-public ResponseEntity<ProyectoDTO> buscarProyectoPorId(@PathVariable Long idProyecto){
+	@GetMapping(path = "/{id}")       //http://localhost:8085/proyectos/123
+public ResponseEntity<ProyectoDTO> buscarProyectoPorId(@PathVariable Long id){
 		
-		Proyecto proyecto = proyectoService.buscarProyectoPorId(idProyecto); //Le paso al proyectoService el id del elemento q quiero buscar
+		Proyecto proyecto = proyectoService.buscarProyectoPorId(id); //Le paso al proyectoService el id del elemento q quiero buscar
 		ProyectoDTO proyectoDTO = new ProyectoDTO(proyecto); //lo transformo en DTO 		
 		return ResponseEntity.ok(proyectoDTO); //y devuelve un objetoDTO a partir del proyecto q yo le paso	
 		
@@ -67,7 +67,7 @@ public ResponseEntity<ProyectoDTO> buscarProyectoPorId(@PathVariable Long idProy
 	
 	
 	//GET	
-	@GetMapping(path = "/buscador")   //http://localhost:8085/proyectos/buscador?nombre=mandarina --FUNCIONA OK - 200 OK
+	@GetMapping(path = "/buscador")   //http://localhost:8085/proyectos/buscador?nombre=Prueba --FUNCIONA OK - 200 OK
 	public ResponseEntity<List<ProyectoDTO>> buscadorDeProyectos(@RequestParam String nombre){
 		
 		List<Proyecto> proyectos = proyectoService.buscadorDeProyectos(nombre);
@@ -94,8 +94,31 @@ public ResponseEntity<ProyectoDTO> buscarProyectoPorId(@PathVariable Long idProy
 	       return ResponseEntity.status(HttpStatus.CREATED).body(proyectoDTO);
 	}
 		
+	//PUT
+	//ACTUALIZAR //Para hacer PUT podes combinar @PathVariable Long id (para enviarle el id por Url) y @RequestBody para enviarle el dato/los datos por el BODY.
+	@PutMapping(path = "/{id}")	 // http://localhost:8085/proyectos/123 + Header + Body  --FUNCIONA OK -- devuelve 204 No Content
+	public ResponseEntity actualizarProyecto(@PathVariable Long id, @RequestBody ProyectoDTO proyectoDTO) {
 		
-
+		   Proyecto proyecto = new Proyecto();
+		   proyecto.setNombre(proyectoDTO.getNombre());
+		   proyecto.setHorasTotales(proyecto.getHorasTotales());
+		 		   
+	       proyectoService.actualizarProyecto(proyecto);		  
+	
+	       return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	      
+	}
+	
+	//DELETE
+	@DeleteMapping(path = "/{id}") //http://localhost:8085/proyectos/123   --FUNCIONA OK -- devuelve 204 No Content
+	public ResponseEntity borrarProyecto(@PathVariable Long id) {
+		
+		proyectoService.borrarProyecto(id);
+		
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	}
+	
+	
 	
 	
 	
