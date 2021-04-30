@@ -17,7 +17,7 @@ import edu.curso.java.trackandbug.repository.*;
            /////////////////// CAPA DE NEGOCIO O SERVICIO (BUSINESS LOGIC LAYER)  //////////////////////////
 
 @Service  
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class ProyectoServiceImp implements ProyectoService {
 
 		
@@ -69,7 +69,7 @@ public class ProyectoServiceImp implements ProyectoService {
 	*/
 	
 	@Override
-	public Long guardarProyecto(Proyecto proyecto) { //Ok En Rest y postman
+	public Long guardarProyecto(Proyecto proyecto) throws ProyectoException { //Ok En Rest y postman
 		
 		
 		proyectoRepository.save(proyecto);		
@@ -110,12 +110,12 @@ public class ProyectoServiceImp implements ProyectoService {
 		 //Asignar usuarios a un proyecto/los proyectos --> /proyectos/{idProyecto}/agregar-usuario/{idUsuario} (cuando inyectas el service en el restcontroller)
 	@Override
 	public void agregarUsuarioProyecto(Long idProyecto, Long idUsuario) {  ////Ok En Rest y postman
-	Proyecto proyecto = proyectoRepository.findById(idProyecto).get();
-	Usuario usuario = usuarioRepository.findById(idUsuario).get();
-	proyecto.getUsuarios().add(usuario);
-	usuario.getProyectos().add(proyecto);
-	proyectoRepository.save(proyecto);
-	usuarioRepository.save(usuario);
+		Proyecto proyecto = proyectoRepository.findById(idProyecto).get();
+		Usuario usuario = usuarioRepository.findById(idUsuario).get();
+		proyecto.getUsuarios().add(usuario);
+		usuario.getProyectos().add(proyecto);
+		proyectoRepository.save(proyecto);
+		usuarioRepository.save(usuario);
 	
 	}
 	

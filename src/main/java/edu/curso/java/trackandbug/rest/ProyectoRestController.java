@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-
 import edu.curso.java.trackandbug.bo.Proyecto;
 
 import edu.curso.java.trackandbug.service.*;
@@ -92,7 +91,7 @@ public ResponseEntity<ProyectoDTO> buscarProyectoPorId(@PathVariable Long id){
 	
 	//POST	
 	@PostMapping //http://localhost:8085/proyectos + Headers (Accept-applicationJson | Content-Type-applicationJson) + Body raw ----> FUNCIONA OK 201 Created
-	public ResponseEntity<ProyectoDTO> guardarProyecto(@RequestBody ProyectoDTO proyectoDTO){		
+	public ResponseEntity<ProyectoDTO> guardarProyecto(@RequestBody ProyectoDTO proyectoDTO) throws ProyectoException{		
 			
 		   Proyecto proyecto = new Proyecto();
 		   proyecto.setNombre(proyectoDTO.getNombre());
@@ -101,6 +100,19 @@ public ResponseEntity<ProyectoDTO> buscarProyectoPorId(@PathVariable Long id){
 	       proyectoService.guardarProyecto(proyecto);		  
 	
 	       return ResponseEntity.status(HttpStatus.CREATED).body(proyectoDTO);
+	       
+	       //PENDIENTE
+	       /*Producto producto = new Producto(); //instanciamos un Producto
+			producto.setNombre(productoDTO.getNombre()); //recupera lo valores del ProductoDTO
+			producto.setPrecio(productoDTO.getPrecio());		
+			try {			
+				Long idGenerado = productoService.guardarProducto(producto, productoDTO.getIdCategoria()); //y lo llama al guardarProducto.Hace el SAVE en la BD.//si queres crearlo solo con el id, tenes q hacer un findById con el id para traer la categoria y setear tu dto
+				productoDTO.setId(idGenerado); //me recupera el ProductoDTo con el ID nuevo
+				return ResponseEntity.status(HttpStatus.CREATED).body(productoDTO); 
+			} catch (ProductoException e) {			
+					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+			}	
+			*/
 	}
 	
 	//Me lo crea, pero cuando devuelvo los proyectos: las horas, el idUsuarioResponsable y el nombreUsuarioResp me tira null
@@ -149,6 +161,55 @@ public ResponseEntity<ProyectoDTO> buscarProyectoPorId(@PathVariable Long id){
 		
 		return ResponseEntity.ok(idProyecto); // ----------------------- FALTA PROBAR 404 Not Found
 	}
+	
+	//CREAR METODO agregarTareaProyecto() EN TareaService + TareaServiceImp(listo)
+	//AGREGAR TAREA AL PROYECTO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! EN BO Tarea
+	//public ResponseEntity<Long> agregarTareaProyecto(@PathVariable Long idProyecto, @RequestParam Long idTarea){...}
+	//tareaService.agregarTareaProyecto(idProyecto,idTarea);
+	// return ResponseEntity.ok(idProyecto);
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

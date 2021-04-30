@@ -3,7 +3,6 @@ package edu.curso.java.trackandbug.service;
 import java.util.*;
 
 
-
 import edu.curso.java.trackandbug.bo.Proyecto;
 import edu.curso.java.trackandbug.bo.Tarea;
 
@@ -18,7 +17,7 @@ public interface ProyectoService {
 	public Proyecto buscarProyectoPorId(Long idProyecto);
 	public List<Proyecto> buscarProyectos(); //Query hecha en ProyectoRepository
 	public List<Proyecto> buscadorDeProyectos(String nombre);	//Query hecha en ProyectoRepository
-	public Long guardarProyecto(Proyecto proyecto); // Proyectos solos SIN tareas --> /proyectos/{idProyecto}	
+	public Long guardarProyecto(Proyecto proyecto) throws ProyectoException; // Proyectos solos SIN tareas --> /proyectos/{idProyecto}	
 	public void actualizarProyecto(Proyecto proyecto);
 	public void borrarProyecto(Long idProyecto);
 	public List<Tarea> tareasProyectoPorId(Long idProyecto); // todas las tareas de un proyecto determinado(id) ---> /proyectos/{idProyecto}/tareas

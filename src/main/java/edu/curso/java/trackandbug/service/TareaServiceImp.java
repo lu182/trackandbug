@@ -17,7 +17,7 @@ import edu.curso.java.trackandbug.repository.*;
 public class TareaServiceImp implements TareaService {
 
 	@Autowired   //inyecto
-	private TareaRepository tareaRepository; //Llamo al TareaRepository para que me brinde métodos propios que hereda del CrudRepository + lo que haya hecho en el repository
+	private TareaRepository tareaRepository; 
 
 	@Autowired
 	private ProyectoRepository proyectoRepository;
@@ -29,23 +29,18 @@ public class TareaServiceImp implements TareaService {
 	
 	
 	@Override
-	public Tarea buscarTareaPorId(Long idTarea) {
+	public Tarea buscarTareaPorId(Long idTarea) { //Ok en rest
 		
 		return tareaRepository.findById(idTarea).get();
 	}
 
 	@Override
-	public List<Tarea> buscarTareas() {
+	public List<Tarea> buscarTareas() {  //Ok en rest
 		
 		return tareaRepository.buscarTareas();
 	}
 
-		@Override
-	public Long guardarTarea(Tarea tarea) {
-		
-		tareaRepository.save(tarea);
-		return tarea.getIdTarea();
-	}
+
 
 	@Override
 	public void actualizarTarea(Tarea tarea) {
@@ -80,6 +75,44 @@ public class TareaServiceImp implements TareaService {
 	public List<Tarea> buscadorDeTareasPorEstado(Long idTarea, Long idEstadoTarea) {
 		
 		return tareaRepository.buscadorDeTareasPorEstado(idTarea, idEstadoTarea);
+	}
+
+	@Override
+	public Long guardarTarea(Tarea tarea, Long idProyecto) throws ProyectoException {
+		
+		tareaRepository.save(tarea);
+		Proyecto proyecto = proyectoRepository.findById(idProyecto).get();
+		Integer horasDisponibles = proyecto.getHorasTotales() - tarea.getHorasAsignadas();
+		if(horasDisponibles <= 0 ) 
+			throw new ProyectoException("Atención!: Las horas de la tarea son superiores a las horas del proyecto");
+			proyecto.setHorasTotales(horasDisponibles);		
+		
+		return tareaRepository.save(tarea).getIdTarea();
+		
+	}
+
+	@Override
+	public void agregarTareaProyecto(Long idProyecto, Long idTarea) { //no es Long es VOID
+		
+		Proyecto proyecto = proyectoRepository.findById(idTarea).get();
+		Tarea tarea = tareaRepository.findById(idTarea).get();
+		proyecto.getTareasProyecto().add(tarea);
+		//tarea.getProyectos().add(proyecto); //AGREGAR las tareas al proyectoooooooooooo!!!
+		//proyectoRepository.save(proyecto);
+		//tareaRepository.save(tarea);
+		
+	}
+	
+	@Override
+	public void agregarTareaAlEstadoTarea(Long idEstadoTarea, Long idTarea) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void agregarTareaAlTipoTarea(Long idTipoTarea, Long idTarea) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

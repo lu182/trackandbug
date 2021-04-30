@@ -17,6 +17,7 @@ public class TareaDTO {
 	
 	private Long idTipoTarea;
 	
+	//private Long idProyecto; //FALTA AGREGAR + Método constructor + getters y setters
 	
 	
 	public TareaDTO() {

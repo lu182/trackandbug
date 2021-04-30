@@ -29,6 +29,11 @@ public class Tarea {
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
 
 	
+	//@ManyToOne  ---AGREGAR !!!!
+	//private Proyecto proyecto;   + getters y setters
+	
+	
+	
 	//GETTERS & SETTERS:
 	public Long getIdTarea() {
 		return idTarea;
