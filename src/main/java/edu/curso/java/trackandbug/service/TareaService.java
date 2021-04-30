@@ -13,11 +13,10 @@ public interface TareaService {
 
 	//MÉTODOS
 	
-	public Tarea buscarTareaPorId(Long idTarea); //bien
+	public Tarea buscarTareaPorId(Long idTarea); 
 	public List<Tarea> buscarTareas(); //Query hecha en TareaRepository
-	//public List<Tarea> buscadorDeTareas(String nombre);	//no va
-	public List<Tarea> buscadorDeTareasPorTipo(Long idTarea, Long idTipoTarea); //hacer la query en repository
-	public List<Tarea> buscadorDeTareasPorEstado(Long idTarea, Long idEstadoTarea); //hacer la query en repository
+	public List<Tarea> buscadorDeTareasPorTipo(Long idTarea, Long idTipoTarea); //Query hecha en TareaRepository
+	public List<Tarea> buscadorDeTareasPorEstado(Long idTarea, Long idEstadoTarea); //Query hecha en TareaRepository
 	public Long guardarTarea(Tarea tarea); //tarea sóla. 
 	public void actualizarTarea(Tarea tarea);
 	public void borrarTarea(Long idTarea);

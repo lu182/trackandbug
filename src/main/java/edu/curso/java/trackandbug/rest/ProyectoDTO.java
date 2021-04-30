@@ -14,15 +14,16 @@ public class ProyectoDTO {
 
 	private Long idProyectoDto;
 	
-	@NotBlank(message = "Falta completar el nombre del proyecto")
+	//@NotBlank(message = "Falta completar el nombre del proyecto")
 	private String nombre;
 	
 	private Integer horasProyecto;
 	
-	private Long idUsuarioResponsable;
+	private Long idUsuarioResponsable; //poner el UsuarioDTO
 	
-	@NotBlank(message = "Falta completar el nombre del usuario responsable del proyecto")
-	private String nombreUsuarioResponsable;
+	//@NotBlank(message = "Falta completar el nombre del usuario responsable del proyecto")
+	private String nombreUsuarioResponsable; //poner el UsuarioDTO
+	
 	
 	
 	
@@ -33,9 +34,9 @@ public class ProyectoDTO {
 
 	public ProyectoDTO(Proyecto p) {
 		this.idProyectoDto = p.getIdProyecto();
-		this.nombre = p.getNombre();
+		this.nombre = p.getNombre();		
 		if(p.getUsuarioResponsable() != null) {
-			this.idUsuarioResponsable = p.getUsuarioResponsable().getIdUsuario();
+			this.idUsuarioResponsable =  p.getUsuarioResponsable().getIdUsuario();
 			this.nombreUsuarioResponsable = p.getUsuarioResponsable().getNombreUsuario();
 		}
 		this.horasProyecto = p.getHorasTotales();
@@ -90,6 +91,9 @@ public class ProyectoDTO {
 	public void setNombreUsuarioResponsable(String nombreUsuarioResponsable) {
 		this.nombreUsuarioResponsable = nombreUsuarioResponsable;
 	}
+	
+
+
 	
 	
 	

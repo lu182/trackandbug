@@ -12,8 +12,7 @@ public class Tarea {
 	@GeneratedValue
 	private Long idTarea;
 	
-	//private String nombreTarea; //NO VA
-	
+
 	private Integer horasAsignadas;
 	
 	@OneToMany //1 tarea muchos comentarios

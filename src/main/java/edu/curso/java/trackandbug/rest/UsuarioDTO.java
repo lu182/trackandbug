@@ -10,11 +10,10 @@ public class UsuarioDTO {
 	private Long idUsuarioDto;
 	
 	@NotBlank(message = "Falta completar el nombre del usuario")
-	private String nombre;
+	private String nombreUsuarioDTO;
+
 	
 	
-	
-	//GETTERS & SETTERS:
 	public Long getIdUsuarioDto() {
 		return idUsuarioDto;
 	}
@@ -23,12 +22,12 @@ public class UsuarioDTO {
 		this.idUsuarioDto = idUsuarioDto;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getNombreUsuarioDTO() {
+		return nombreUsuarioDTO;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombreUsuarioDTO(String nombreUsuarioDTO) {
+		this.nombreUsuarioDTO = nombreUsuarioDTO;
 	}
 	
 	

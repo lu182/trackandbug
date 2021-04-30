@@ -40,29 +40,42 @@ public class ProyectoServiceImp implements ProyectoService {
 	
 	//ESTOS METODOS SON LOS MÉTODOS DE ProyectoService
 	@Override
-	public Proyecto buscarProyectoPorId(Long idProyecto) {		
+	public Proyecto buscarProyectoPorId(Long idProyecto) {		// Ok en Rest
 		
 		return proyectoRepository.findById(idProyecto).get();
 	}
 
 	@Override
-	public List<Proyecto> buscarProyectos() {
+	public List<Proyecto> buscarProyectos() { //Ok en Rest
 		
 		return proyectoRepository.buscarProyectos();
 		
 	}
 	
 	@Override
-	public List<Proyecto> buscadorDeProyectos(String nombre) {
+	public List<Proyecto> buscadorDeProyectos(String nombre) { //Ok En Rest
 		
 		return proyectoRepository.buscadorDeProyectos(nombre);
 	}
 
+	
+	/*@Override
+	public Long guardarProyecto(Proyecto proyecto, Long idUsuario) {
+		
+		proyectoRepository.save(proyecto);
+		
+		return null;
+	}
+	*/
+	
 	@Override
 	public Long guardarProyecto(Proyecto proyecto) {
 		
-		proyectoRepository.save(proyecto);
-		return proyecto.getIdProyecto();
+		
+		proyectoRepository.save(proyecto);		
+		
+			return proyecto.getIdProyecto();
+		
 	}
 
 		
@@ -113,6 +126,8 @@ public class ProyectoServiceImp implements ProyectoService {
 		
 		return horas;
 	}
+
+	
 	
 
 	

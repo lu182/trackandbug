@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+
 import edu.curso.java.trackandbug.bo.Proyecto;
 
 import edu.curso.java.trackandbug.service.*;
@@ -31,4 +32,75 @@ public class ProyectoRestController {
 
 	//GET-POST-PUT-DELETE + Inyeccion de dependencias de las interfaces de servicios
 	
-}
+	@Autowired 
+	ProyectoService proyectoService;
+	
+	@Autowired
+	UsuarioService usuarioService;
+	
+	@Autowired
+	TareaService tareaService;
+	
+	
+	//GET
+	@GetMapping(path = "/{id}")       //http://localhost:8085/proyectos/1234 ó cualquier ID	
+public ResponseEntity<ProyectoDTO> buscarProyectoPorId(@PathVariable Long idProyecto){
+		
+		Proyecto proyecto = proyectoService.buscarProyectoPorId(idProyecto); //Le paso al proyectoService el id del elemento q quiero buscar
+		ProyectoDTO proyectoDTO = new ProyectoDTO(proyecto); //lo transformo en DTO 		
+		return ResponseEntity.ok(proyectoDTO); //y devuelve un objetoDTO a partir del proyecto q yo le paso	
+		
+	}
+	
+	//GET
+	@GetMapping(path = "/")   //http://localhost:8085/proyectos/ --> FUNCIONA OK -- 200 OK. Me va a traer los dos proyectos (devuelve una coleccion). 
+	public ResponseEntity<List<ProyectoDTO>> buscarProyectos(){
+		
+		List<Proyecto> proyectos = proyectoService.buscarProyectos();		
+		List<ProyectoDTO> proyectosDTO = new ArrayList<ProyectoDTO>(); //recupero el listado
+		for (Proyecto p : proyectos) { 
+			proyectosDTO.add(new ProyectoDTO(p));
+		}
+		
+		return ResponseEntity.ok(proyectosDTO);
+	}
+	
+	
+	//GET	
+	@GetMapping(path = "/buscador")   //http://localhost:8085/proyectos/buscador?nombre=mandarina --FUNCIONA OK - 200 OK
+	public ResponseEntity<List<ProyectoDTO>> buscadorDeProyectos(@RequestParam String nombre){
+		
+		List<Proyecto> proyectos = proyectoService.buscadorDeProyectos(nombre);
+		List<ProyectoDTO> proyectosDTO = new ArrayList<ProyectoDTO>();
+		for (Proyecto p : proyectos) { 
+			proyectosDTO.add(new ProyectoDTO(p));
+		}
+		
+		return ResponseEntity.ok(proyectosDTO);
+		
+	}
+	
+	
+	//POST	
+	@PostMapping //http://localhost:8085/proyectos + Headers (Accept-applicationJson | Content-Type-applicationJson) + Body raw ----> FUNCIONA OK 201 Created
+	public ResponseEntity<ProyectoDTO> guardarProyecto(@RequestBody ProyectoDTO proyectoDTO){		
+			
+		   Proyecto proyecto = new Proyecto();
+		   proyecto.setNombre(proyectoDTO.getNombre());
+		   proyecto.setHorasTotales(proyecto.getHorasTotales());
+		 		   
+	       proyectoService.guardarProyecto(proyecto);		  
+	
+	       return ResponseEntity.status(HttpStatus.CREATED).body(proyectoDTO);
+	}
+		
+		
+
+	
+	
+	
+	
+}	
+	
+	
+
