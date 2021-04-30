@@ -21,12 +21,13 @@ public interface TareaService {
 	public void actualizarTarea(Tarea tarea);
 	public void borrarTarea(Long idTarea);
 	public Integer consultarHorasTotales(Long idTarea); //Query hecha en TareaRepository
+	public Long guardarTarea(Tarea tarea);
 	
-	public Long guardarTareaConProyecto(Tarea tarea, Long idProyecto) throws ProyectoException; //FALTA TERMINAR EN TareaRest
+	public Long guardarTareaConProyecto(Tarea tarea, Long idProyecto) throws ProyectoException; 
 	public Long guardarTareaConTipoYEstado(Tarea tarea, Long idTipoTarea, Long idEstadoTarea);
 	
 	
-	public TareaDTO altaTarea(Long idProyecto, Integer horasAsignadasTarea, Long idTipoTarea, Long idEstadoTarea);
+	
 	
 	
 	

@@ -45,6 +45,9 @@ public class TareaRestController {
 	@Autowired
 	EstadoTareaService estadoTareaService;
 	
+	@Autowired
+	TipoTareaService tipoTareaService;
+	
 	
 	//GET   http://localhost:8085/tareas/1
 	@GetMapping(path = "/{id}") 
@@ -74,36 +77,15 @@ public class TareaRestController {
 	
 	//podes combinar @PathVariable Long idProyecto (para enviarle el id por Url) y @RequestBody para enviarle el dato/los datos por el BODY.
 	 //http://localhost:8085/proyectos/1/idTarea ó body raw de tareaDto???????  
-	
-	//---------ME QUEDÉ ACÁ !!!! -----
 	public ResponseEntity<TareaDTO> guardarTarea(@PathVariable Long idProyecto, @RequestBody TareaDTO tareaDTO){
-		//Tarea tarea, Long idTipoTarea, Long idEstado
+		
 		Tarea tarea = new Tarea();
-		Proyecto proyecto = proyectoService.buscarProyectoPorId(idProyecto);
-		tarea.setIdTarea(tareaDTO.getIdTareaDto());
 		tarea.setHorasAsignadas(tareaDTO.getHorasAsignadasTarea());
-		EstadoTarea estadoTarea = estadoTareaService.buscarEstadoTareaPorId(tareaDTO.getIdEstadoTarea());
-		//falta el tipo de tarea
-		tarea.setProyectoTareas(proyecto);
+		tareaService.guardarTarea(tarea);
 		
-		
-		
-		//tarea.setEstadoTarea(tareaDTO.getIdEstadoTarea());
-		
-		
-		//tareaService.guardarTarea(tarea, idProyecto);		
 		return ResponseEntity.status(HttpStatus.CREATED).body(tareaDTO);
 	}
-	
-	/*@PostMapping(path="/{id}/tareas")
-	public ResponseEntity<Long> altaTareas(@PathVariable Long id, @RequestParam Long idTipo, 
-			@RequestParam Long idEstado, @RequestBody TareaDTO tarea) {
-		TareaDTO tareaRes = tareaService.altaTarea(id, tarea.getDuracion(), idTipo, idEstado);
-		return ResponseEntity.status(HttpStatus.CREATED).body(tareaRes.getIdTarea());
-	}
-	*/
-	
-	
+			
 	
 	
 	

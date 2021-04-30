@@ -134,7 +134,7 @@ public ResponseEntity<ProyectoDTO> buscarProyectoPorId(@PathVariable Long id){
 	}
 	
 	
-	//PUT //Asignar un usuario al proyecto - http://localhost:8085/proyectos/123/agregar-usuario/1 -- 400 Bad Request
+	//PUT //Asignar un usuario al proyecto - http://localhost:8085/proyectos/123/agregar-usuario/1 
 	@PutMapping(path = "/{idProyecto}/agregar-usuario/{idUsuario}") //sino sacarle el agregar-usuario y el RequestParam cambiarlo por PathVariable
 	public ResponseEntity<Long> agregarUsuarioProyecto(@PathVariable Long idProyecto, @PathVariable Long idUsuario){ //Lo cambié por @PathVariable Long idUsuario
 		
@@ -142,7 +142,7 @@ public ResponseEntity<ProyectoDTO> buscarProyectoPorId(@PathVariable Long id){
 		
 		ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		
-		return ResponseEntity.ok(idProyecto); // ----------------------- FALTA PROBAR 400 Bad Request. FALTA AGREGAR USUARIOS
+		return ResponseEntity.ok(idProyecto); // ----------------------- FALTA PROBAR 400 Bad Request. 
 	}
 	
 	
@@ -152,30 +152,17 @@ public ResponseEntity<ProyectoDTO> buscarProyectoPorId(@PathVariable Long id){
 	//POST -- Agregar una tarea al proyecto - http://localhost:8085/proyectos/1/tareas
 	@PostMapping(path = "/{idTarea}/tareas") 
 	public ResponseEntity<Long> agregarTareaProyecto(@PathVariable Long idTarea, @RequestParam Long idTipoTarea,
-			@RequestParam Long idEstadoTarea, @RequestBody TareaDTO tareaDTO){
+			@RequestParam Long idEstadoTarea, @RequestParam Long idProyecto, @RequestBody TareaDTO tareaDTO){
 	
-		TareaDTO t = tareaService.altaTarea(idTarea, tareaDTO.getHorasAsignadasTarea(), idTipoTarea, idEstadoTarea);
+		//Long t = tareaService.guardarTareaConTipoYEstado(tareaDTO, idTipoTarea, idEstadoTarea);        
+				
+				//tareaService.guardarTarea(tareaDTO);
 		
-				return ResponseEntity.status(HttpStatus.CREATED).body(t.getIdTareaDto());
+				return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		
 	}
 		
 		
-		/*try {
-			//tareaService.guardarTareaConProyecto(tareaDTO, idProyecto);
-			Proyecto proyecto = new Proyecto();
-			proyecto.setNombre(proyecto.getNombre());
-			proyecto.setHorasTotales(proyecto.getHorasTotales());
-			
-			//tareaService.guardarTareaConProyecto(tareaDTO, idProyecto);
-			
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-			
-		} catch (ProyectoException e) {
-			
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
-		}
-		*/
 	
 	
 	

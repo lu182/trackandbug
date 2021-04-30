@@ -41,6 +41,15 @@ public class TareaServiceImp implements TareaService {
 		
 		return tareaRepository.buscarTareas();
 	}
+	
+	@Override
+	public Long guardarTarea(Tarea tarea){ 
+		
+		tareaRepository.save(tarea);
+		return tarea.getIdTarea();
+		
+		
+	}
 
 	@Override
 	public void actualizarTarea(Tarea tarea) {
@@ -103,38 +112,6 @@ public class TareaServiceImp implements TareaService {
 		return tarea.getIdTarea();
 	}
 
-	@Override
-	public TareaDTO altaTarea(Long idProyecto, Integer horasAsignadasTarea, Long idTipoTarea, Long idEstadoTarea) {
-		
-		Proyecto proyecto = proyectoRepository.findById(idProyecto).get();
-		TareaDTO tareaR;
-		if((proyecto.getHorasTotales() - horasAsignadasTarea) >= 0) {
-			TipoTarea tipoTarea = tipoTareaRepository.findById(idTipoTarea).get();
-			EstadoTarea estadoTarea = estadoTareaRepository.findById(idEstadoTarea).get();
-			Tarea tarea = new Tarea();
-			tareaR = new TareaDTO(tarea);
-			tarea.setHorasAsignadas(horasAsignadasTarea);
-			tarea.setEstadoTarea(estadoTarea);
-			tarea.setTipoTarea(tipoTarea);
-			tarea.setProyectoTareas(proyecto);
-			proyecto.setHorasTotales(proyecto.getHorasTotales() - tarea.getHorasAsignadas());
-			proyectoRepository.save(proyecto);	
-			tarea.setProyectoTareas(proyecto);
-			tareaRepository.save(tarea);
-		}else {
-			
-			tareaR = null;
-		}
-		
-		return tareaR;
-	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
