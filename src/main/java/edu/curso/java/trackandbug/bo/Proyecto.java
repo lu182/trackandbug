@@ -29,10 +29,7 @@ public class Proyecto {
 	@ManyToMany //varios proyectos, varios usuarios
 	private List<Usuario> usuarios = new ArrayList<Usuario>(); //fk -- 1 proyecto tiene varios usuarios/varios usuarios 1 proyecto
 	
-		
-	//es el mismo usuario que va estar en varios proyectos
-	//1 proyecto varios usuarios asignados
-	//1 asgnado va estar e varios proyectos? si (no lepongo onetomany)
+
 	
 	
 	//GETTERS & SETTERS:

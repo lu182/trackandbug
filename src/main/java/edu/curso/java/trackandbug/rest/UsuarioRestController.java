@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import edu.curso.java.trackandbug.bo.Proyecto;
+import edu.curso.java.trackandbug.bo.Tarea;
 import edu.curso.java.trackandbug.bo.Usuario;
 
 import edu.curso.java.trackandbug.service.*;
@@ -28,6 +30,42 @@ import edu.curso.java.trackandbug.service.*;
 @RestController 
 @RequestMapping("/usuarios") //defino la URL base
 public class UsuarioRestController {
-
+	
 	//GET-POST-PUT-DELETE + Inyeccion de dependencias de las interfaces de servicios
+	
+	
+	@Autowired
+	UsuarioService usuarioService;
+	
+	
+	//GET  http://localhost:8085/usuarios/ -- ver todos los usuarios
+		@GetMapping(path = "/") 
+		public ResponseEntity<List<UsuarioDTO>> buscarUsuarios(){
+			
+			List<Usuario> usuarios = usuarioService.buscarUsuarios();
+			List<UsuarioDTO> usuariosDTO = new ArrayList<UsuarioDTO>();
+			for (Usuario u : usuarios) {
+				usuariosDTO.add(new UsuarioDTO(u));
+			}
+			return ResponseEntity.ok(usuariosDTO);
+		}
+		
+		
+		//POST
+		@PostMapping          //http://localhost:8085/usuarios + Headers (Accept-applicationJson | Content-Type-applicationJson) + Body raw 
+		public ResponseEntity<UsuarioDTO> guardarUsuario(@RequestBody UsuarioDTO usuarioDTO){
+			
+			Usuario usuario = new Usuario();
+			usuario.setNombreUsuario(usuarioDTO.getNombreUsuarioDTO());
+			
+			usuarioService.guardarUsuario(usuario);
+			return ResponseEntity.status(HttpStatus.CREATED).body(usuarioDTO);
+			
+		}
+		
+			
+		
+			
+		
+		
 }

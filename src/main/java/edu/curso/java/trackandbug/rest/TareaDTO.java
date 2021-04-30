@@ -17,7 +17,7 @@ public class TareaDTO {
 	
 	private Long idTipoTarea;
 	
-	//private Long idProyecto; //FALTA AGREGAR + Método constructor + getters y setters
+	private Long idProyectoTarea; 
 	
 	
 	public TareaDTO() {
@@ -35,8 +35,14 @@ public class TareaDTO {
 		if(tipoTarea != null) {
 			this.idTipoTarea = tipoTarea.getIdTipoTarea();
 		}
+		Proyecto proyecto = t.getProyectoTareas();
+		if(proyecto != null) {
+			this.idProyectoTarea = proyecto.getIdProyecto();
+		}
 		
 	}
+
+	
 
 	public Long getIdTareaDto() {
 		return idTareaDto;
@@ -69,9 +75,16 @@ public class TareaDTO {
 	public void setIdTipoTarea(Long idTipoTarea) {
 		this.idTipoTarea = idTipoTarea;
 	}
-	
-	
 
+	public Long getIdProyectoTarea() {
+		return idProyectoTarea;
+	}
+
+	public void setIdProyectoTarea(Long idProyectoTarea) {
+		this.idProyectoTarea = idProyectoTarea;
+	}
+	
+	
 	
 
 	

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import edu.curso.java.trackandbug.bo.Proyecto;
-
+import edu.curso.java.trackandbug.bo.Tarea;
 import edu.curso.java.trackandbug.service.*;
 
        ////////////////////////////////////API REST ///////////////////////////////////////////////////
@@ -42,7 +42,21 @@ public class ProyectoRestController {
 	
 	
 	//GET
-	@GetMapping(path = "/{id}")       //http://localhost:8085/proyectos/123
+		@GetMapping(path = "/")   //http://localhost:8085/proyectos/ --> FUNCIONA OK -- 200 OK. Me va a traer los dos proyectos (devuelve una coleccion). 
+		public ResponseEntity<List<ProyectoDTO>> buscarProyectos(){
+			
+			List<Proyecto> proyectos = proyectoService.buscarProyectos();		
+			List<ProyectoDTO> proyectosDTO = new ArrayList<ProyectoDTO>(); //recupero el listado
+			for (Proyecto p : proyectos) { 
+				proyectosDTO.add(new ProyectoDTO(p));
+			}
+			
+			return ResponseEntity.ok(proyectosDTO);
+		}
+		
+	
+	//GET
+	@GetMapping(path = "/{id}")       //http://localhost:8085/proyectos/123 --FUNCIONA OK
 public ResponseEntity<ProyectoDTO> buscarProyectoPorId(@PathVariable Long id){
 		
 		Proyecto proyecto = proyectoService.buscarProyectoPorId(id); //Le paso al proyectoService el id del elemento q quiero buscar
@@ -50,20 +64,7 @@ public ResponseEntity<ProyectoDTO> buscarProyectoPorId(@PathVariable Long id){
 		return ResponseEntity.ok(proyectoDTO); //y devuelve un objetoDTO a partir del proyecto q yo le paso	
 		
 	}
-	
-	//GET
-	@GetMapping(path = "/")   //http://localhost:8085/proyectos/ --> FUNCIONA OK -- 200 OK. Me va a traer los dos proyectos (devuelve una coleccion). 
-	public ResponseEntity<List<ProyectoDTO>> buscarProyectos(){
 		
-		List<Proyecto> proyectos = proyectoService.buscarProyectos();		
-		List<ProyectoDTO> proyectosDTO = new ArrayList<ProyectoDTO>(); //recupero el listado
-		for (Proyecto p : proyectos) { 
-			proyectosDTO.add(new ProyectoDTO(p));
-		}
-		
-		return ResponseEntity.ok(proyectosDTO);
-	}
-	
 	
 	//GET	
 	@GetMapping(path = "/buscador")   //http://localhost:8085/proyectos/buscador?nombre=Prueba --FUNCIONA OK - 200 OK
@@ -79,20 +80,22 @@ public ResponseEntity<ProyectoDTO> buscarProyectoPorId(@PathVariable Long id){
 		
 	}
 	
+	
 	//GET  //  http://localhost:8085/proyectos/161/horas-totales -- 404 Not Found
-	@GetMapping(path = "/proyectos/{idProyecto}/horas-totales") //ver si va horas-totales
+	@GetMapping(path = "/proyectos/{idProyecto}/horas-totales") 
 	public ResponseEntity<Long> consultarHorasTotalesProyecto(@PathVariable Long idProyecto){
 		
 		proyectoService.consultarHorasTotales(idProyecto);
-		return ResponseEntity.ok(idProyecto);  // --------------- FALTA PROBAR 404 Not Found
+		return ResponseEntity.ok(idProyecto);  // --------------- FALTA PROBAR 404 Not Found (no encontró la entidad)
 	}
 	
 
 	
-	//POST	
+	//POST	-- FUNCIONA OK
 	@PostMapping //http://localhost:8085/proyectos + Headers (Accept-applicationJson | Content-Type-applicationJson) + Body raw ----> FUNCIONA OK 201 Created
 	public ResponseEntity<ProyectoDTO> guardarProyecto(@RequestBody ProyectoDTO proyectoDTO) throws ProyectoException{		
-			
+			//@Valid = 400 Bad Request si no le pones los datos requeridos
+		
 		   Proyecto proyecto = new Proyecto();
 		   proyecto.setNombre(proyectoDTO.getNombre());
 		   proyecto.setHorasTotales(proyecto.getHorasTotales());
@@ -101,32 +104,11 @@ public ResponseEntity<ProyectoDTO> buscarProyectoPorId(@PathVariable Long id){
 	
 	       return ResponseEntity.status(HttpStatus.CREATED).body(proyectoDTO);
 	       
-	       //PENDIENTE
-	       /*Producto producto = new Producto(); //instanciamos un Producto
-			producto.setNombre(productoDTO.getNombre()); //recupera lo valores del ProductoDTO
-			producto.setPrecio(productoDTO.getPrecio());		
-			try {			
-				Long idGenerado = productoService.guardarProducto(producto, productoDTO.getIdCategoria()); //y lo llama al guardarProducto.Hace el SAVE en la BD.//si queres crearlo solo con el id, tenes q hacer un findById con el id para traer la categoria y setear tu dto
-				productoDTO.setId(idGenerado); //me recupera el ProductoDTo con el ID nuevo
-				return ResponseEntity.status(HttpStatus.CREATED).body(productoDTO); 
-			} catch (ProductoException e) {			
-					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
-			}	
-			*/
+	       
 	}
 	
-	//Me lo crea, pero cuando devuelvo los proyectos: las horas, el idUsuarioResponsable y el nombreUsuarioResp me tira null
-	
-	/*		{
-	        "idProyectoDto": 1,
-	        "nombre": "Prueba", 
-	        "horasProyecto": 2,
-	        "idUsuarioResponsable": 1,
-	        "nombreUsuarioResponsable": "Luciana" / // VER POR QUÉ TIRA NULL AL CONSULTAR(GET) EL PROYECTO CREADO
-	      	}
-	*/
-	
-	//PUT
+		
+	//PUT --- FUNCIONA OK
 	//ACTUALIZAR //Para hacer PUT podes combinar @PathVariable Long id (para enviarle el id por Url) y @RequestBody para enviarle el dato/los datos por el BODY.
 	@PutMapping(path = "/{id}")	 // http://localhost:8085/proyectos/123 + Header + Body  --FUNCIONA OK -- devuelve 204 No Content
 	public ResponseEntity actualizarProyecto(@PathVariable Long id, @RequestBody ProyectoDTO proyectoDTO) {
@@ -141,6 +123,7 @@ public ResponseEntity<ProyectoDTO> buscarProyectoPorId(@PathVariable Long id){
 	      
 	}
 	
+	
 	//DELETE
 	@DeleteMapping(path = "/{id}") //http://localhost:8085/proyectos/123   --FUNCIONA OK -- devuelve 204 No Content
 	public ResponseEntity borrarProyecto(@PathVariable Long id) {
@@ -151,67 +134,53 @@ public ResponseEntity<ProyectoDTO> buscarProyectoPorId(@PathVariable Long id){
 	}
 	
 	
-	//PUT //Asignar un usuario al proyecto - http://localhost:8085/proyectos/123/agregar-usuario/1 -- 404 Not Found	
-	@PutMapping(path = "proyectos/{idProyecto}/agregar-usuario/{idUsuario}")
-	public ResponseEntity<Long> agregarUsuarioProyecto(@PathVariable Long idProyecto, @RequestParam Long idUsuario){
+	//PUT //Asignar un usuario al proyecto - http://localhost:8085/proyectos/123/agregar-usuario/1 -- 400 Bad Request
+	@PutMapping(path = "/{idProyecto}/agregar-usuario/{idUsuario}") //sino sacarle el agregar-usuario y el RequestParam cambiarlo por PathVariable
+	public ResponseEntity<Long> agregarUsuarioProyecto(@PathVariable Long idProyecto, @PathVariable Long idUsuario){ //Lo cambié por @PathVariable Long idUsuario
 		
 		proyectoService.agregarUsuarioProyecto(idProyecto, idUsuario);
 		
 		ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		
-		return ResponseEntity.ok(idProyecto); // ----------------------- FALTA PROBAR 404 Not Found
+		return ResponseEntity.ok(idProyecto); // ----------------------- FALTA PROBAR 400 Bad Request. FALTA AGREGAR USUARIOS
 	}
 	
-	//CREAR METODO agregarTareaProyecto() EN TareaService + TareaServiceImp(listo)
-	//AGREGAR TAREA AL PROYECTO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! EN BO Tarea
-	//public ResponseEntity<Long> agregarTareaProyecto(@PathVariable Long idProyecto, @RequestParam Long idTarea){...}
-	//tareaService.agregarTareaProyecto(idProyecto,idTarea);
-	// return ResponseEntity.ok(idProyecto);
+	
+	
+	
+	//FALTA PROBAR 400 Bad Request. FALTA AGREGAR TAREAS
+	//POST -- Agregar una tarea al proyecto - http://localhost:8085/proyectos/1/tareas
+	@PostMapping(path = "/{idTarea}/tareas") 
+	public ResponseEntity<Long> agregarTareaProyecto(@PathVariable Long idTarea, @RequestParam Long idTipoTarea,
+			@RequestParam Long idEstadoTarea, @RequestBody TareaDTO tareaDTO){
+	
+		TareaDTO t = tareaService.altaTarea(idTarea, tareaDTO.getHorasAsignadasTarea(), idTipoTarea, idEstadoTarea);
+		
+				return ResponseEntity.status(HttpStatus.CREATED).body(t.getIdTareaDto());
+		
+	}
+		
+		
+		/*try {
+			//tareaService.guardarTareaConProyecto(tareaDTO, idProyecto);
+			Proyecto proyecto = new Proyecto();
+			proyecto.setNombre(proyecto.getNombre());
+			proyecto.setHorasTotales(proyecto.getHorasTotales());
+			
+			//tareaService.guardarTareaConProyecto(tareaDTO, idProyecto);
+			
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+			
+		} catch (ProyectoException e) {
+			
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+		}
+		*/
+	
+	
 	
 	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }	
 	

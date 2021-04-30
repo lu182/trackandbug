@@ -22,7 +22,7 @@ public interface ProyectoRepository extends CrudRepository<Proyecto, Long> {
 	public List<Proyecto> buscarProyectos();	
 	
 	@Query(value = "select sum(p.horasTotales) from Proyecto p where p.idProyecto = :idProyecto") //tienen que coincidir con los atributos de la clase Bo
-	public Integer consultarHorasTotales(@Param(value = "idProyecto") Long idProyecto);
+	public Long consultarHorasTotales(@Param(value = "idProyecto") Long idProyecto);
 	
 	
 	

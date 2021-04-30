@@ -11,10 +11,10 @@ public class Usuario {
 	@GeneratedValue
 	private Long idUsuario;
 	
-	@Column(nullable = false, length = 200)
+	//@Column(nullable = false, length = 200)
 	private String nombreUsuario;
 	
-	@Column(nullable = false, length = 200)
+	//@Column(nullable = false, length = 200)
 	private String apellidoUsuario;
 	
 	@ManyToOne

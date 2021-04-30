@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.curso.java.trackandbug.bo.*;
 import edu.curso.java.trackandbug.repository.*;
+import edu.curso.java.trackandbug.rest.TareaDTO;
 
         /////////////////// CAPA DE NEGOCIO O SERVICIO (BUSINESS LOGIC LAYER)  //////////////////////////
 
@@ -25,8 +26,9 @@ public class TareaServiceImp implements TareaService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
+	@Autowired EstadoTareaRepository estadoTareaRepository;
 	
-	
+	@Autowired TipoTareaRepository tipoTareaRepository;
 	
 	@Override
 	public Tarea buscarTareaPorId(Long idTarea) { //Ok en rest
@@ -39,8 +41,6 @@ public class TareaServiceImp implements TareaService {
 		
 		return tareaRepository.buscarTareas();
 	}
-
-
 
 	@Override
 	public void actualizarTarea(Tarea tarea) {
@@ -78,7 +78,7 @@ public class TareaServiceImp implements TareaService {
 	}
 
 	@Override
-	public Long guardarTarea(Tarea tarea, Long idProyecto) throws ProyectoException {
+	public Long guardarTareaConProyecto(Tarea tarea, Long idProyecto) throws ProyectoException {
 		
 		tareaRepository.save(tarea);
 		Proyecto proyecto = proyectoRepository.findById(idProyecto).get();
@@ -88,32 +88,49 @@ public class TareaServiceImp implements TareaService {
 			proyecto.setHorasTotales(horasDisponibles);		
 		
 		return tareaRepository.save(tarea).getIdTarea();
-		
 	}
 
 	@Override
-	public void agregarTareaProyecto(Long idProyecto, Long idTarea) { //no es Long es VOID
+	public Long guardarTareaConTipoYEstado(Tarea tarea, Long idTipoTarea, Long idEstadoTarea) {
 		
-		Proyecto proyecto = proyectoRepository.findById(idTarea).get();
-		Tarea tarea = tareaRepository.findById(idTarea).get();
-		proyecto.getTareasProyecto().add(tarea);
-		//tarea.getProyectos().add(proyecto); //AGREGAR las tareas al proyectoooooooooooo!!!
-		//proyectoRepository.save(proyecto);
-		//tareaRepository.save(tarea);
+		TipoTarea tipoTarea = tipoTareaRepository.findById(idTipoTarea).get();
+		EstadoTarea estadoTarea = estadoTareaRepository.findById(idEstadoTarea).get();
+		tarea.setTipoTarea(tipoTarea);
+		tarea.setEstadoTarea(estadoTarea);
 		
+		tareaRepository.save(tarea);
+		
+		return tarea.getIdTarea();
+	}
+
+	@Override
+	public TareaDTO altaTarea(Long idProyecto, Integer horasAsignadasTarea, Long idTipoTarea, Long idEstadoTarea) {
+		
+		Proyecto proyecto = proyectoRepository.findById(idProyecto).get();
+		TareaDTO tareaR;
+		if((proyecto.getHorasTotales() - horasAsignadasTarea) >= 0) {
+			TipoTarea tipoTarea = tipoTareaRepository.findById(idTipoTarea).get();
+			EstadoTarea estadoTarea = estadoTareaRepository.findById(idEstadoTarea).get();
+			Tarea tarea = new Tarea();
+			tareaR = new TareaDTO(tarea);
+			tarea.setHorasAsignadas(horasAsignadasTarea);
+			tarea.setEstadoTarea(estadoTarea);
+			tarea.setTipoTarea(tipoTarea);
+			tarea.setProyectoTareas(proyecto);
+			proyecto.setHorasTotales(proyecto.getHorasTotales() - tarea.getHorasAsignadas());
+			proyectoRepository.save(proyecto);	
+			tarea.setProyectoTareas(proyecto);
+			tareaRepository.save(tarea);
+		}else {
+			
+			tareaR = null;
+		}
+		
+		return tareaR;
 	}
 	
-	@Override
-	public void agregarTareaAlEstadoTarea(Long idEstadoTarea, Long idTarea) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void agregarTareaAlTipoTarea(Long idTipoTarea, Long idTarea) {
-		// TODO Auto-generated method stub
-		
-	}
+	
+	
 	
 	
 	

@@ -2,9 +2,10 @@ package edu.curso.java.trackandbug.service;
 
 import java.util.*;
 
-import org.springframework.data.repository.query.Param;
+
 
 import edu.curso.java.trackandbug.bo.Tarea;
+import edu.curso.java.trackandbug.rest.TareaDTO;
 
 /////////////////// CAPA DE NEGOCIO O SERVICIO (BUSINESS LOGIC LAYER)  //////////////////////////
 
@@ -21,11 +22,13 @@ public interface TareaService {
 	public void borrarTarea(Long idTarea);
 	public Integer consultarHorasTotales(Long idTarea); //Query hecha en TareaRepository
 	
-	public Long guardarTarea(Tarea tarea, Long idProyecto) throws ProyectoException; //FALTA TERMINAR EN TareaRest
+	public Long guardarTareaConProyecto(Tarea tarea, Long idProyecto) throws ProyectoException; //FALTA TERMINAR EN TareaRest
+	public Long guardarTareaConTipoYEstado(Tarea tarea, Long idTipoTarea, Long idEstadoTarea);
 	
-	public void agregarTareaProyecto(Long idProyecto, Long idTarea); //AGREGAR
-	public void agregarTareaAlEstadoTarea(Long idEstadoTarea, Long idTarea); //AGREGAR
-	public void agregarTareaAlTipoTarea(Long idTipoTarea, Long idTarea); //AGREGAR
+	
+	public TareaDTO altaTarea(Long idProyecto, Integer horasAsignadasTarea, Long idTipoTarea, Long idEstadoTarea);
+	
+	
 	
 	
 }

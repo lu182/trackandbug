@@ -58,16 +58,7 @@ public class ProyectoServiceImp implements ProyectoService {
 		return proyectoRepository.buscadorDeProyectos(nombre);
 	}
 
-	
-	/*@Override
-	public Long guardarProyecto(Proyecto proyecto, Long idUsuario) {
 		
-		proyectoRepository.save(proyecto);
-		
-		return null;
-	}
-	*/
-	
 	@Override
 	public Long guardarProyecto(Proyecto proyecto) throws ProyectoException { //Ok En Rest y postman
 		
@@ -122,16 +113,13 @@ public class ProyectoServiceImp implements ProyectoService {
 	@Override
 	public Integer consultarHorasTotales(Long idProyecto) {  //Ok En Rest y postman
 		Proyecto proyecto = proyectoRepository.findById(idProyecto).get();
+	
+		
 		Integer horas = proyecto.getHorasTotales();
 		
 		return horas;
 	}
 
-	
-	
-
-	
-	
 		
 	
 	

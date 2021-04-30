@@ -22,18 +22,19 @@ public class Tarea {
 	@ManyToOne
 	private TipoTarea tipoTarea;
 	
-	@ManyToOne
+	@ManyToOne //1 tarea tiene un estado
 	private EstadoTarea estadoTarea;
 	
-	@ManyToMany
+	@ManyToMany //1 tarea o muchas tareas tienen muchos usuarios
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
 
+	//1 tarea o muchas tareas tienen un proyecto
+	@ManyToOne  
+	private Proyecto proyectoTareas;  
 	
-	//@ManyToOne  ---AGREGAR !!!!
-	//private Proyecto proyecto;   + getters y setters
 	
 	
-	
+
 	//GETTERS & SETTERS:
 	public Long getIdTarea() {
 		return idTarea;
@@ -81,6 +82,14 @@ public class Tarea {
 
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
+	}
+
+	public Proyecto getProyectoTareas() {
+		return proyectoTareas;
+	}
+
+	public void setProyectoTareas(Proyecto proyectoTareas) {
+		this.proyectoTareas = proyectoTareas;
 	}
 
 	@Override

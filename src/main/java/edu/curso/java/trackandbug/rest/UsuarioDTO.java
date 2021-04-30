@@ -9,12 +9,23 @@ public class UsuarioDTO {
 
 	private Long idUsuarioDto;
 	
-	@NotBlank(message = "Falta completar el nombre del usuario")
+	//@NotBlank(message = "Falta completar el nombre del usuario")
 	private String nombreUsuarioDTO;
 
 	private Long usuarioResponsableId; //fk dentro de Usuarios
 	
 	
+	public UsuarioDTO(Usuario u) {
+		this.idUsuarioDto = u.getIdUsuario();
+		this.nombreUsuarioDTO = u.getNombreUsuario();
+		Usuario usuario = u.getUsuarioResponsable();
+		if(usuario != null) {
+			this.idUsuarioDto = usuario.getIdUsuario();
+		}
+		
+	}
+	
+	public UsuarioDTO() {}	
 
 	public Long getIdUsuarioDto() {
 		return idUsuarioDto;
