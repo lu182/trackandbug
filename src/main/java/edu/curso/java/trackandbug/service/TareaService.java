@@ -15,16 +15,15 @@ public interface TareaService {
 	//MÉTODOS
 	
 	public Tarea buscarTareaPorId(Long idTarea); 
-	public List<Tarea> buscarTareas(); //Query hecha en TareaRepository
-	public List<Tarea> buscadorDeTareasPorTipo(Long idTarea, Long idTipoTarea); //Query hecha en TareaRepository
-	public List<Tarea> buscadorDeTareasPorEstado(Long idTarea, Long idEstadoTarea); //Query hecha en TareaRepository
+	public Iterable<Tarea> buscarTareas(); 
+	public List<Tarea> buscadorDeTareasPorTipo(Long idTarea, Long idTipoTarea); 
+	public List<Tarea> buscadorDeTareasPorEstado(Long idTarea, Long idEstadoTarea); 
 	public void actualizarTarea(Tarea tarea);
 	public void borrarTarea(Long idTarea);
-	public Integer consultarHorasTotales(Long idTarea); //Query hecha en TareaRepository
-	public Long guardarTarea(Tarea tarea);
+	public Long consultarHorasTotales(Long idTarea); 
 	
-	public Long guardarTareaConProyecto(Tarea tarea, Long idProyecto) throws ProyectoException; 
-	public Long guardarTareaConTipoYEstado(Tarea tarea, Long idTipoTarea, Long idEstadoTarea);
+	public void agregarUsuarioTarea(Long idTarea, Long idUsuario);
+	
 	
 	
 	

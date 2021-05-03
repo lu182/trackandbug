@@ -11,11 +11,12 @@ public class EstadoTarea {
 	@GeneratedValue
 	private Long idEstadoTarea;
 	
-	@Column(nullable = false, length = 200)
+	//@Column(nullable = false, length = 200)
 	private String nombreEstadoTarea;
-	
+
 	
 	//GETTERS & SETTERS
+	
 	public Long getIdEstadoTarea() {
 		return idEstadoTarea;
 	}
@@ -62,6 +63,8 @@ public class EstadoTarea {
 			return false;
 		return true;
 	}
+	
+	
 	
 	
 	

@@ -31,4 +31,23 @@ import edu.curso.java.trackandbug.service.*;
 public class ComentarioRestController {
 
 	//GET-POST-PUT-DELETE + Inyeccion de dependencias de las interfaces de servicios
+	
+	
+	@Autowired
+	private ComentarioService comentarioService;
+	
+	@Autowired 
+	private TareaService tareaService;
+	
+	@Autowired
+	private UsuarioService usuarioService;
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

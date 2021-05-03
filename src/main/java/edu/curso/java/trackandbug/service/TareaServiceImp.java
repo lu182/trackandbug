@@ -30,26 +30,20 @@ public class TareaServiceImp implements TareaService {
 	
 	@Autowired TipoTareaRepository tipoTareaRepository;
 	
+	
+	
 	@Override
-	public Tarea buscarTareaPorId(Long idTarea) { //Ok en rest
+	public Tarea buscarTareaPorId(Long idTarea) { 
 		
 		return tareaRepository.findById(idTarea).get();
 	}
 
 	@Override
-	public List<Tarea> buscarTareas() {  //Ok en rest
+	public Iterable<Tarea> buscarTareas() {  
 		
-		return tareaRepository.buscarTareas();
+		return tareaRepository.findAll();
 	}
 	
-	@Override
-	public Long guardarTarea(Tarea tarea){ 
-		
-		tareaRepository.save(tarea);
-		return tarea.getIdTarea();
-		
-		
-	}
 
 	@Override
 	public void actualizarTarea(Tarea tarea) {
@@ -66,53 +60,43 @@ public class TareaServiceImp implements TareaService {
 	}
 
 	@Override
-	public Integer consultarHorasTotales(Long idTarea) {
+	public Long consultarHorasTotales(Long idTarea) {
 		
-		Tarea tarea = tareaRepository.findById(idTarea).get();
-		Integer horas = tarea.getHorasAsignadas();
+		Long horas = tareaRepository.consultarHorasTotales(idTarea); 		
+		
 		return horas;
 	}
-
+	
 	@Override   
 	public List<Tarea> buscadorDeTareasPorTipo(Long idTarea, Long idTipoTarea) {
 		
 		return tareaRepository.buscadorDeTareasPorTipo(idTarea, idTipoTarea);
 	}
 	
+	@Override
+	public void agregarUsuarioTarea(Long idTarea, Long idUsuario) { 
+		Tarea tarea = tareaRepository.findById(idTarea).get();
+		Usuario usuario = usuarioRepository.findById(idUsuario).get();
+				
+		for(Usuario u : tarea.getUsuarios()){
+			if(u.getIdUsuario() == idUsuario){
+				return;
+			}
+		}
+		
+		tarea.getUsuarios().add(usuario);
+	    tareaRepository.save(tarea).getIdTarea();
+	    
+	}
 	
-	@Override 
+	
+	@Override
 	public List<Tarea> buscadorDeTareasPorEstado(Long idTarea, Long idEstadoTarea) {
 		
 		return tareaRepository.buscadorDeTareasPorEstado(idTarea, idEstadoTarea);
+		
+		
 	}
-
-	@Override
-	public Long guardarTareaConProyecto(Tarea tarea, Long idProyecto) throws ProyectoException {
-		
-		tareaRepository.save(tarea);
-		Proyecto proyecto = proyectoRepository.findById(idProyecto).get();
-		Integer horasDisponibles = proyecto.getHorasTotales() - tarea.getHorasAsignadas();
-		if(horasDisponibles <= 0 ) 
-			throw new ProyectoException("Atención!: Las horas de la tarea son superiores a las horas del proyecto");
-			proyecto.setHorasTotales(horasDisponibles);		
-		
-		return tareaRepository.save(tarea).getIdTarea();
-	}
-
-	@Override
-	public Long guardarTareaConTipoYEstado(Tarea tarea, Long idTipoTarea, Long idEstadoTarea) {
-		
-		TipoTarea tipoTarea = tipoTareaRepository.findById(idTipoTarea).get();
-		EstadoTarea estadoTarea = estadoTareaRepository.findById(idEstadoTarea).get();
-		tarea.setTipoTarea(tipoTarea);
-		tarea.setEstadoTarea(estadoTarea);
-		
-		tareaRepository.save(tarea);
-		
-		return tarea.getIdTarea();
-	}
-
-	
 	
 	
 }

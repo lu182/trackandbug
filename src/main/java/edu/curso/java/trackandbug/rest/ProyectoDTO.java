@@ -15,18 +15,13 @@ public class ProyectoDTO {
 	private Long idProyectoDto;
 	
 	@NotBlank(message = "Falta completar el nombre del proyecto")
-	private String nombre;
+	private String nombreProyecto;
 	
-	private Integer horasProyecto;
+	private Integer horasTotalesProyecto;
 	
 	private Long idUsuarioResponsable; 
 	
-	@NotBlank(message = "Falta completar el nombre del usuario responsable del proyecto")
-	private String nombreUsuarioResponsable; 
-	
-	
-	
-	
+		
 	public ProyectoDTO() {
 		
 	};
@@ -34,15 +29,16 @@ public class ProyectoDTO {
 
 	public ProyectoDTO(Proyecto p) {
 		this.idProyectoDto = p.getIdProyecto();
-		this.nombre = p.getNombre();		
-		if(p.getUsuarioResponsable() != null) {
-			this.idUsuarioResponsable =  p.getUsuarioResponsable().getIdUsuario();
-			this.nombreUsuarioResponsable = p.getUsuarioResponsable().getNombreUsuario();
+		this.nombreProyecto = p.getNombre();
+		this.horasTotalesProyecto = p.getHorasTotales();
+		if(p.getUsuarioResponsable() != null) { //Si le pongo ==null, se rompe postman. 
+			this.idUsuarioResponsable = p.getIdUsuarioResponsable(); //p.getUsuarioResponsable().getIdUsuario();
+			
 		}
-		this.horasProyecto = p.getHorasTotales();
+		 
 	}
 
-
+	
 	public Long getIdProyectoDto() {
 		return idProyectoDto;
 	}
@@ -53,23 +49,23 @@ public class ProyectoDTO {
 	}
 
 
-	public String getNombre() {
-		return nombre;
+	public String getNombreProyecto() {
+		return nombreProyecto;
 	}
 
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombreProyecto(String nombreProyecto) {
+		this.nombreProyecto = nombreProyecto;
 	}
 
 
-	public Integer getHorasProyecto() {
-		return horasProyecto;
+	public Integer getHorasTotalesProyecto() {
+		return horasTotalesProyecto;
 	}
 
 
-	public void setHorasProyecto(Integer horasProyecto) {
-		this.horasProyecto = horasProyecto;
+	public void setHorasTotalesProyecto(Integer horasTotalesProyecto) {
+		this.horasTotalesProyecto = horasTotalesProyecto;
 	}
 
 
@@ -81,17 +77,6 @@ public class ProyectoDTO {
 	public void setIdUsuarioResponsable(Long idUsuarioResponsable) {
 		this.idUsuarioResponsable = idUsuarioResponsable;
 	}
-
-
-	public String getNombreUsuarioResponsable() {
-		return nombreUsuarioResponsable;
-	}
-
-
-	public void setNombreUsuarioResponsable(String nombreUsuarioResponsable) {
-		this.nombreUsuarioResponsable = nombreUsuarioResponsable;
-	}
-	
 
 
 	

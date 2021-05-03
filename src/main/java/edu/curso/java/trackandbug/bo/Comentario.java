@@ -11,16 +11,20 @@ public class Comentario {
 	@GeneratedValue
 	private Long idComentario;
 	
-	@Column(nullable = false, length = 500)
+	//@Column(nullable = false, length = 500)
 	private String descripcion;
-	
+		
 	private Date fecha = new Date();
 	
-	@ManyToOne
-	private Usuario usuario; //fk
+	private Long idTareaComentario;
+	
+	private Long idUsuarioComentario;
 	
 	@ManyToOne
-	private Tarea tarea; //fk
+	private Usuario usuario; 
+	
+	@ManyToOne
+	private Tarea tarea;
 
 	
 	//GETTERS & SETTERS:
@@ -46,6 +50,22 @@ public class Comentario {
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+
+	public Long getIdTareaComentario() {
+		return idTareaComentario;
+	}
+
+	public void setIdTareaComentario(Long idTareaComentario) {
+		this.idTareaComentario = idTareaComentario;
+	}
+
+	public Long getIdUsuarioComentario() {
+		return idUsuarioComentario;
+	}
+
+	public void setIdUsuarioComentario(Long idUsuarioComentario) {
+		this.idUsuarioComentario = idUsuarioComentario;
 	}
 
 	public Usuario getUsuario() {
@@ -94,20 +114,7 @@ public class Comentario {
 			return false;
 		return true;
 	} 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	

@@ -10,10 +10,17 @@ public class Tarea {
 	
 	@Id  
 	@GeneratedValue
-	private Long idTarea;
+	private Long idTarea;	
 	
-
+	private String nombreTarea; //Tarea: Crear base de datos - Tipo: Desarrollo - Estado: abierta
+	
 	private Integer horasAsignadas;
+	
+	private Long idEstadoTarea;
+	
+	private Long idTipoTarea;
+	
+	private Long idProyectoTarea;
 	
 	@OneToMany //1 tarea muchos comentarios
 	@JoinColumn(name = "TAREA_ID") ////nombre de la FK que quiero que me genere en la tabla Comentarios para hacer la unión y no se genere tabla intermedia
@@ -30,12 +37,11 @@ public class Tarea {
 
 	//1 tarea o muchas tareas tienen un proyecto
 	@ManyToOne  
-	private Proyecto proyectoTareas;  
-	
-	
-	
+	private Proyecto proyectoTareas;
 
+	
 	//GETTERS & SETTERS:
+	
 	public Long getIdTarea() {
 		return idTarea;
 	}
@@ -44,12 +50,44 @@ public class Tarea {
 		this.idTarea = idTarea;
 	}
 
+	public String getNombreTarea() {
+		return nombreTarea;
+	}
+
+	public void setNombreTarea(String nombreTarea) {
+		this.nombreTarea = nombreTarea;
+	}
+
 	public Integer getHorasAsignadas() {
 		return horasAsignadas;
 	}
 
 	public void setHorasAsignadas(Integer horasAsignadas) {
 		this.horasAsignadas = horasAsignadas;
+	}
+
+	public Long getIdEstadoTarea() {
+		return idEstadoTarea;
+	}
+
+	public void setIdEstadoTarea(Long idEstadoTarea) {
+		this.idEstadoTarea = idEstadoTarea;
+	}
+
+	public Long getIdTipoTarea() {
+		return idTipoTarea;
+	}
+
+	public void setIdTipoTarea(Long idTipoTarea) {
+		this.idTipoTarea = idTipoTarea;
+	}
+
+	public Long getIdProyectoTarea() {
+		return idProyectoTarea;
+	}
+
+	public void setIdProyectoTarea(Long idProyectoTarea) {
+		this.idProyectoTarea = idProyectoTarea;
 	}
 
 	public List<Comentario> getComentarios() {
@@ -97,6 +135,7 @@ public class Tarea {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((idTarea == null) ? 0 : idTarea.hashCode());
+		result = prime * result + ((nombreTarea == null) ? 0 : nombreTarea.hashCode());
 		return result;
 	}
 
@@ -114,22 +153,13 @@ public class Tarea {
 				return false;
 		} else if (!idTarea.equals(other.idTarea))
 			return false;
+		if (nombreTarea == null) {
+			if (other.nombreTarea != null)
+				return false;
+		} else if (!nombreTarea.equals(other.nombreTarea))
+			return false;
 		return true;
-	}
-
-	
-	
-
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
+	}  
 	
 	
 	

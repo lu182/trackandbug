@@ -19,12 +19,10 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
 	@Query(value = "from Usuario u where u.nombreUsuario like :nombreUsuario")
 	public List<Usuario> buscadorDeUsuarios(@Param("nombreUsuario") String nombre);
 	
-	@Query(value = "from Usuario u")
-	public List<Usuario> buscarUsuarios();
 	
 	
 	
-	//En esta clase van algunas querys. Sólo heredamos la clase CrudRepository de Spring que ya tiene todo 
-	//y despues inyecto esta clase en la clase UsuarioServiceImp
+	
+	
 	
 }

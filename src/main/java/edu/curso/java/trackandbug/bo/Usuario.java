@@ -26,9 +26,11 @@ public class Usuario {
 	//varios usuarios, varios proyectos -- nuevo
 	@ManyToMany(mappedBy = "usuarios")
 	private List<Proyecto> proyectos = new ArrayList<Proyecto>();
+
 	
 	
 	//GETTERS & SETTERS
+	
 	public Long getIdUsuario() {
 		return idUsuario;
 	}
@@ -53,19 +55,20 @@ public class Usuario {
 		this.apellidoUsuario = apellidoUsuario;
 	}
 
-	public List<Tarea> getTareas() {
-		return tareas;
-	}
-
-	public void setTareas(List<Tarea> tareas) {
-		this.tareas = tareas;
-	}
 	public Usuario getUsuarioResponsable() {
 		return usuarioResponsable;
 	}
 
 	public void setUsuarioResponsable(Usuario usuarioResponsable) {
 		this.usuarioResponsable = usuarioResponsable;
+	}
+
+	public List<Tarea> getTareas() {
+		return tareas;
+	}
+
+	public void setTareas(List<Tarea> tareas) {
+		this.tareas = tareas;
 	}
 
 	public List<Proyecto> getProyectos() {
@@ -75,8 +78,6 @@ public class Usuario {
 	public void setProyectos(List<Proyecto> proyectos) {
 		this.proyectos = proyectos;
 	}
-	
-	
 
 	@Override
 	public int hashCode() {
@@ -108,6 +109,15 @@ public class Usuario {
 			return false;
 		return true;
 	}
+
+	
+	
+	
+	
+
+	
+	
+	
 	
 	
 	

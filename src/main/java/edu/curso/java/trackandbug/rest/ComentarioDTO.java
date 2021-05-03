@@ -44,6 +44,56 @@ public class ComentarioDTO {
 		}
 		
 	}
+
+
+	public Long getIdComentarioDto() {
+		return idComentarioDto;
+	}
+
+
+	public void setIdComentarioDto(Long idComentarioDto) {
+		this.idComentarioDto = idComentarioDto;
+	}
+
+
+	public String getDescripcionComentario() {
+		return descripcionComentario;
+	}
+
+
+	public void setDescripcionComentario(String descripcionComentario) {
+		this.descripcionComentario = descripcionComentario;
+	}
+
+
+	public Date getFechaComentario() {
+		return fechaComentario;
+	}
+
+
+	public void setFechaComentario(Date fechaComentario) {
+		this.fechaComentario = fechaComentario;
+	}
+
+
+	public Long getIdTareaComentario() {
+		return idTareaComentario;
+	}
+
+
+	public void setIdTareaComentario(Long idTareaComentario) {
+		this.idTareaComentario = idTareaComentario;
+	}
+
+
+	public Long getIdUsuarioComentario() {
+		return idUsuarioComentario;
+	}
+
+
+	public void setIdUsuarioComentario(Long idUsuarioComentario) {
+		this.idUsuarioComentario = idUsuarioComentario;
+	}
 	
 	
 	

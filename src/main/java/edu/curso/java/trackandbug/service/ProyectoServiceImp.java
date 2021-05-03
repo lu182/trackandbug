@@ -30,37 +30,32 @@ public class ProyectoServiceImp implements ProyectoService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
+		
 	
-	
-	//LOS SOBRESCRIBIS A TU MANERA---ver todas las TAREAS de ESTE proyecto por ID(determinado) 
-	//y ver proyectos solos SIN tareas
-	//y Asignar usuarios a un proyecto/los proyectos. --- LAS MACHEO DESDE ACÁ
-	
-	
-	
-	//ESTOS METODOS SON LOS MÉTODOS DE ProyectoService
 	@Override
-	public Proyecto buscarProyectoPorId(Long idProyecto) {		//Ok En Rest y postman
+	public Proyecto buscarProyectoPorId(Long idProyecto) {		
 		
 		return proyectoRepository.findById(idProyecto).get();
 	}
 
 	@Override
-	public List<Proyecto> buscarProyectos() { //Ok En Rest y postman
+	public List<Proyecto> buscarProyectos() { 
 		
 		return proyectoRepository.buscarProyectos();
+		
+		
 		
 	}
 	
 	@Override
-	public List<Proyecto> buscadorDeProyectos(String nombre) { //Ok En Rest y postman
+	public List<Proyecto> buscadorDeProyectos(String nombre) { 
 		
 		return proyectoRepository.buscadorDeProyectos(nombre);
 	}
 
 		
 	@Override
-	public Long guardarProyecto(Proyecto proyecto) throws ProyectoException { //Ok En Rest y postman
+	public Long guardarProyecto(Proyecto proyecto) throws ProyectoException { 
 		
 		
 		proyectoRepository.save(proyecto);		
@@ -71,7 +66,7 @@ public class ProyectoServiceImp implements ProyectoService {
 
 		
 	@Override
-	public void actualizarProyecto(Proyecto proyecto) {  //Ok En Rest y postman
+	public void actualizarProyecto(Proyecto proyecto) { 
 		
 		proyectoRepository.save(proyecto);
 		
@@ -79,28 +74,28 @@ public class ProyectoServiceImp implements ProyectoService {
 	}
 
 	@Override
-	public void borrarProyecto(Long idProyecto) {  //Ok En Rest y postman
+	public void borrarProyecto(Long idProyecto) {  
 		
 		proyectoRepository.deleteById(idProyecto);
 		
 		
 	}
 
-	@Override  //todas las tareas de ese proyecto por id (muchas tareas 1 proyecto)  /proyectos/{idProyecto}/tareas
+	@Override  //todas las tareas de ese proyecto por id (muchas tareas 1 proyecto)  
 	public List<Tarea> tareasProyectoPorId(Long idProyecto) {		
-		Proyecto proyecto = proyectoRepository.findById(idProyecto).get(); //obtengo el idProyecto
+		Proyecto proyecto = proyectoRepository.findById(idProyecto).get(); 
 		List<Tarea> tareas = new ArrayList<Tarea>();
 		for (Tarea t : proyecto.getTareasProyecto()) {
 			tareas.add(t);
 		}
-		return tareas;	//devuelve lista de tareas de ese proyecto
+		return tareas;	//devuelve lista de tareas de ese proyecto determinado
 		
 	}
 	
-	//muchos usuarios muchos proyectos - Usuarios asignados a ese proyecto public void agregarUsuarioProyecto(Long idProyecto, Long idUsuario)
-		 //Asignar usuarios a un proyecto/los proyectos --> /proyectos/{idProyecto}/agregar-usuario/{idUsuario} (cuando inyectas el service en el restcontroller)
+	
+		 //Asignar usuarios a un proyecto/los proyectos 
 	@Override
-	public void agregarUsuarioProyecto(Long idProyecto, Long idUsuario) {  ////Ok En Rest y postman
+	public void agregarUsuarioProyecto(Long idProyecto, Long idUsuario) {  
 		Proyecto proyecto = proyectoRepository.findById(idProyecto).get();
 		Usuario usuario = usuarioRepository.findById(idUsuario).get();
 		proyecto.getUsuarios().add(usuario);
@@ -111,14 +106,30 @@ public class ProyectoServiceImp implements ProyectoService {
 	}
 	
 	@Override
-	public Integer consultarHorasTotales(Long idProyecto) {  //Ok En Rest y postman
+	public Integer consultarHorasTotalesProyecto(Long idProyecto) {  
+		
 		Proyecto proyecto = proyectoRepository.findById(idProyecto).get();
-	
-		
 		Integer horas = proyecto.getHorasTotales();
-		
+				
 		return horas;
 	}
+
+	@Override
+	public void asignarTareaAlProyecto(Long idProyecto, Long idTarea) {
+		
+		Proyecto proyecto = proyectoRepository.findById(idProyecto).get();
+		Tarea tarea = tareaRepository.findById(idTarea).get();
+		proyecto.getTareasProyecto();
+		tarea.getProyectoTareas();
+		proyectoRepository.save(proyecto);
+		tareaRepository.save(tarea);
+		
+	}
+
+
+
+	
+	
 
 		
 	

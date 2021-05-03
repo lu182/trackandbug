@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
 
 import edu.curso.java.trackandbug.bo.EstadoTarea;
-import edu.curso.java.trackandbug.bo.Proyecto;
+
 import edu.curso.java.trackandbug.service.*;
 
          ////////////////////////////////////API REST ///////////////////////////////////////////////////
@@ -32,53 +32,51 @@ public class EstadoTareaRestController {
 	//GET-POST-PUT-DELETE + Inyeccion de dependencias de las interfaces de servicios
 	
 	@Autowired
-	EstadoTareaService estadoTareaService;
+	private EstadoTareaService estadoTareaService;
 	
-	@Autowired 
-	TareaService tareaService;
-	
-	
-	@GetMapping(path = "/")   //http://localhost:8085/estados-tareas/  devuelve todos
-	public ResponseEntity<List<EstadoTareaDTO>> buscarEstadosTarea(){
 		
-		List<EstadoTarea> estadosTarea = estadoTareaService.buscarEstadosTareas();	
-		List<EstadoTareaDTO> estadosTareaDTO = new ArrayList<EstadoTareaDTO>(); //recupero el listado
-		for (EstadoTarea ep : estadosTarea) { 
-			estadosTareaDTO.add(new EstadoTareaDTO(ep));
+	
+	//GET
+	@GetMapping(path = "/")   // http://localhost:8085/estados-tareas/  --->  devuelve todos ---FUNCIONA OK
+		public ResponseEntity<List<EstadoTareaDTO>> buscarEstadosTarea(){
+		
+		Iterable<EstadoTarea> estadosTarea = estadoTareaService.buscarEstadosTareas();
+		List<EstadoTareaDTO> estadosTareaDTO = new ArrayList<EstadoTareaDTO>(); 
+		for (EstadoTarea et : estadosTarea) { 
+			estadosTareaDTO.add(new EstadoTareaDTO(et));
 		}
 		
 		return ResponseEntity.ok(estadosTareaDTO);
-	}
+		
+		}
 	
 	
-	//GET   http://localhost:8085/estados-tareas/1
-		@GetMapping(path = "/{idEstadoTarea}") 
-		public ResponseEntity<EstadoTareaDTO> buscarEstadoPorId(@PathVariable Long idEstadoTarea){
+	                              //http://localhost:8085/estados-tareas/1   --FUNCIONA OK
+	//GET   
+	@GetMapping(path = "/{idEstadoTarea}")  
+		public ResponseEntity<EstadoTareaDTO> buscarEstadoPorId(@PathVariable Long idEstadoTarea){ 
 			
 			EstadoTarea estadoTarea = estadoTareaService.buscarEstadoTareaPorId(idEstadoTarea);  
 			EstadoTareaDTO estadoTareaDTO = new EstadoTareaDTO(estadoTarea);
 			return ResponseEntity.ok(estadoTareaDTO);
-			
-			
+					
 		}
 	
-	
-	//POST  http://localhost:8085/estados-tareas + Headers (Accept-applicationJson | Content-Type-applicationJson) + Body raw
-	@PostMapping	
-	public ResponseEntity<EstadoTareaDTO> guardarEstadoTarea(@Valid @RequestBody EstadoTareaDTO estadoTareaDTO){
+			
+	@GetMapping(path = "/buscador")   //http://localhost:8085/estados-tareas/buscador?nombre=ABIERTA --FUNCIONA OK
+		public ResponseEntity<List<EstadoTareaDTO>> buscadorDeEstadosTareaPorNombre(@RequestParam String nombre){
 		
-		EstadoTarea estadoTarea = new EstadoTarea();
-		estadoTarea.setIdEstadoTarea(estadoTareaDTO.getIdEstadoTarea());
-		estadoTarea.setNombreEstadoTarea(estadoTareaDTO.getNombreEstadoTarea());
-				
-		return ResponseEntity.status(HttpStatus.CREATED).body(estadoTareaDTO); //tiene que devolver un objeto
+		List<EstadoTarea> estadosTarea = estadoTareaService.buscadorDeEstadosTareaPorNombre(nombre);
+		List<EstadoTareaDTO> estadosTareaDTO = new ArrayList<EstadoTareaDTO>();
+		for (EstadoTarea et : estadosTarea) {
+			
+			estadosTareaDTO.add(new EstadoTareaDTO(et));
+		}
 		
-	}	
+		return ResponseEntity.ok(estadosTareaDTO);
 		
+	}
+	
 		
-
-	
-	
-	
 	
 }

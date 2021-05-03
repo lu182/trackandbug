@@ -11,13 +11,13 @@ public class Proyecto {
 	
 	@Id  
 	@GeneratedValue
-	private Long idProyecto;
+	private Long idProyecto;	
 	
-	@Column(nullable = false, length = 200) //No soporta nulos
 	private String nombre;
 	
-	private Integer horasTotales; //horas asignadas
+	private Integer horasTotales; 
 	
+	private Long idUsuarioResponsable;
 	
 	@ManyToOne //varios proyectos un responsable, es el mismo usuario que va estar en varios proyectos --ok
 	private Usuario usuarioResponsable; //fk dentro de la misma tabla -- 1 proyecto tiene 1 usuario responsable
@@ -28,11 +28,11 @@ public class Proyecto {
 	
 	@ManyToMany //varios proyectos, varios usuarios
 	private List<Usuario> usuarios = new ArrayList<Usuario>(); //fk -- 1 proyecto tiene varios usuarios/varios usuarios 1 proyecto
-	
 
 	
-	
+
 	//GETTERS & SETTERS:
+	
 	public Long getIdProyecto() {
 		return idProyecto;
 	}
@@ -52,9 +52,17 @@ public class Proyecto {
 	public Integer getHorasTotales() {
 		return horasTotales;
 	}
-
+	
 	public void setHorasTotales(Integer horasTotales) {
 		this.horasTotales = horasTotales;
+	}
+
+	public Long getIdUsuarioResponsable() {
+		return idUsuarioResponsable;
+	}
+
+	public void setIdUsuarioResponsable(Long idUsuarioResponsable) {
+		this.idUsuarioResponsable = idUsuarioResponsable;
 	}
 
 	public Usuario getUsuarioResponsable() {
@@ -112,7 +120,11 @@ public class Proyecto {
 		return true;
 	}
 	
-
+	
+	
+	
+	
+	
 	
 	
 	

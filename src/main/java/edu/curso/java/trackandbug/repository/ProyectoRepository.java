@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 
 import edu.curso.java.trackandbug.bo.Proyecto;
+import edu.curso.java.trackandbug.bo.TipoTarea;
 
 public interface ProyectoRepository extends CrudRepository<Proyecto, Long> {
 
@@ -19,23 +20,5 @@ public interface ProyectoRepository extends CrudRepository<Proyecto, Long> {
 	public List<Proyecto> buscadorDeProyectos(@Param("nombre") String nombre);		
 	
 	@Query(value = "from Proyecto p")
-	public List<Proyecto> buscarProyectos();	
-	
-	@Query(value = "select sum(p.horasTotales) from Proyecto p where p.idProyecto = :idProyecto") //tienen que coincidir con los atributos de la clase Bo
-	public Long consultarHorasTotales(@Param(value = "idProyecto") Long idProyecto);
-	
-	
-	
-	
-	
-	
-	//En esta clase van algunas querys. Sólo heredamos la clase CrudRepository de Spring que ya tiene todo 
-	//y despues inyecto esta clase en la clase ProyectoServiceImp
-	
-	
-		
-	
-	
-	
-	
+	public List<Proyecto> buscarProyectos(); 
 }

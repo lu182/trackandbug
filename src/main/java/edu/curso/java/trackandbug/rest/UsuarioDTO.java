@@ -12,7 +12,7 @@ public class UsuarioDTO {
 	//@NotBlank(message = "Falta completar el nombre del usuario")
 	private String nombreUsuarioDTO;
 
-	private Long usuarioResponsableId; //fk dentro de Usuarios
+	private Long idUsuarioResponsableDto; 
 	
 	
 	public UsuarioDTO(Usuario u) {
@@ -20,12 +20,14 @@ public class UsuarioDTO {
 		this.nombreUsuarioDTO = u.getNombreUsuario();
 		Usuario usuario = u.getUsuarioResponsable();
 		if(usuario != null) {
-			this.idUsuarioDto = usuario.getIdUsuario();
+			this.idUsuarioResponsableDto = usuario.getUsuarioResponsable().getIdUsuario();
 		}
 		
 	}
 	
-	public UsuarioDTO() {}	
+	public UsuarioDTO() {
+		
+	}
 
 	public Long getIdUsuarioDto() {
 		return idUsuarioDto;
@@ -43,14 +45,14 @@ public class UsuarioDTO {
 		this.nombreUsuarioDTO = nombreUsuarioDTO;
 	}
 
-	public Long getUsuarioResponsableId() {
-		return usuarioResponsableId;
+	public Long getIdUsuarioResponsableDto() {
+		return idUsuarioResponsableDto;
 	}
 
-	public void setUsuarioResponsableId(Long usuarioResponsableId) {
-		this.usuarioResponsableId = usuarioResponsableId;
-	}
-	
+	public void setIdUsuarioResponsableDto(Long idUsuarioResponsableDto) {
+		this.idUsuarioResponsableDto = idUsuarioResponsableDto;
+	}	
+
 	
 	
 	

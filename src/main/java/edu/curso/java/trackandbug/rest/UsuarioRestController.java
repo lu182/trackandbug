@@ -35,14 +35,17 @@ public class UsuarioRestController {
 	
 	
 	@Autowired
-	UsuarioService usuarioService;
+	private UsuarioService usuarioService;
+	
+	@Autowired
+	private ComentarioService comentarioService;
 	
 	
-	//GET  http://localhost:8085/usuarios/ -- ver todos los usuarios
+	//GET  http://localhost:8085/usuarios/ -- FUNCIONA OK
 		@GetMapping(path = "/") 
 		public ResponseEntity<List<UsuarioDTO>> buscarUsuarios(){
 			
-			List<Usuario> usuarios = usuarioService.buscarUsuarios();
+			Iterable<Usuario> usuarios = usuarioService.buscarUsuarios();
 			List<UsuarioDTO> usuariosDTO = new ArrayList<UsuarioDTO>();
 			for (Usuario u : usuarios) {
 				usuariosDTO.add(new UsuarioDTO(u));
@@ -51,15 +54,50 @@ public class UsuarioRestController {
 		}
 		
 		
-		//POST
+		//GET
+		@GetMapping(path = "/{idUsuario}")    //http://localhost:8085/usuarios/1
+		public ResponseEntity<UsuarioDTO> buscarUsuariosPorId(@PathVariable Long idUsuario){
+			
+			Usuario usuario = usuarioService.buscarUsuarioPorId(idUsuario);
+			UsuarioDTO usuarioDTO = new UsuarioDTO(usuario);
+			return ResponseEntity.ok(usuarioDTO);
+		}
+		
+		//GET   http://localhost:8085/usuarios/buscador?nombre=Luciana
+		@GetMapping(path = "/buscador") 
+		public ResponseEntity<List<UsuarioDTO>> buscadorDeUsuariosPorNombre(@RequestParam String nombre){
+			
+			List<Usuario> usuarios = usuarioService.buscadorDeUsuarios(nombre);
+			List<UsuarioDTO> usuariosDTO = new ArrayList<UsuarioDTO>();
+			for (Usuario u : usuarios) {
+				usuariosDTO.add(new UsuarioDTO(u));
+			}
+			
+			return ResponseEntity.ok(usuariosDTO);
+		}
+		
+		
+		
+		//POST  - FUNCIONA OK
 		@PostMapping          //http://localhost:8085/usuarios + Headers (Accept-applicationJson | Content-Type-applicationJson) + Body raw 
 		public ResponseEntity<UsuarioDTO> guardarUsuario(@RequestBody UsuarioDTO usuarioDTO){
 			
 			Usuario usuario = new Usuario();
+			usuario.setIdUsuario(usuarioDTO.getIdUsuarioDto());
 			usuario.setNombreUsuario(usuarioDTO.getNombreUsuarioDTO());
-			
-			usuarioService.guardarUsuario(usuario);
-			return ResponseEntity.status(HttpStatus.CREATED).body(usuarioDTO);
+			usuario.setUsuarioResponsable(usuario);
+						
+			try {
+				Long idGenerado = usuarioService.guardarUsuario(usuario);
+				usuarioDTO.setIdUsuarioDto(idGenerado);
+				
+				return ResponseEntity.status(HttpStatus.CREATED).body(usuarioDTO);
+				
+			} catch (Exception e) {
+				
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e); 
+							
+			}
 			
 		}
 		

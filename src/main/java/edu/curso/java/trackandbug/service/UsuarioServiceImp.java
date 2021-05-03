@@ -27,44 +27,33 @@ public class UsuarioServiceImp implements UsuarioService {
 	
 	
 	@Override
-	public Usuario buscarUsuarioPorId(Long idUsuario) {
+	public Usuario buscarUsuarioPorId(Long idUsuario) {  
 		
 		return usuarioRepository.findById(idUsuario).get();
 	}
 
 	@Override
-	public List<Usuario> buscarUsuarios() {
+	public Iterable<Usuario> buscarUsuarios() { 
 		
-		return usuarioRepository.buscarUsuarios();
+		return usuarioRepository.findAll();
 	}
 
 	@Override
-	public List<Usuario> buscadorDeUsuarios(String nombre) {
+	public List<Usuario> buscadorDeUsuarios(String nombre) { 
 		
 		return usuarioRepository.buscadorDeUsuarios(nombre);
 	}
 
 	@Override
-	public Long guardarUsuario(Usuario usuario) {
+	public Long guardarUsuario(Usuario usuario) { 
 		
 		usuarioRepository.save(usuario);
 		return usuario.getIdUsuario();
 	}
 
 
-	@Override
-	public void actualizarUsuario(Usuario usuario) {
-		
-		usuarioRepository.save(usuario);
-		
-	}
 
-	@Override
-	public void borrarUsuario(Long idUsuario) {
-		
-		usuarioRepository.deleteById(idUsuario);
-		
-	}
+
 
 	
 	

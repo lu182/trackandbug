@@ -33,13 +33,13 @@ public class TipoTareaRestController {
 	//GET-POST-PUT-DELETE + Inyeccion de dependencias de las interfaces de servicios
 	
 	@Autowired
-	TipoTareaService tipoTareaService;
+	private TipoTareaService tipoTareaService;
 	
 	@Autowired 
-	TareaService tareaService;
+	private TareaService tareaService;
 	
 	@Autowired
-	EstadoTareaService estadoTareaService;
+	private EstadoTareaService estadoTareaService;
 	
 	
 	@GetMapping(path = "/")   //http://localhost:8085/tipos-tareas/  devuelve todos

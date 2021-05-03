@@ -34,19 +34,20 @@ public class TareaRestController {
 	//GET-POST-PUT-DELETE + Inyeccion de dependencias de las interfaces de servicios
 	
 	@Autowired 
-	TareaService tareaService;
+	private TareaService tareaService;
 	
+	@Autowired
+	private EstadoTareaService estadoTareaService;
+	
+	@Autowired
+	private TipoTareaService tipoTareaService;
+		
 	@Autowired 
-	ProyectoService proyectoService;
+	private ProyectoService proyectoService;
 	
 	@Autowired
-	UsuarioService usuarioService;
+	private UsuarioService usuarioService;
 	
-	@Autowired
-	EstadoTareaService estadoTareaService;
-	
-	@Autowired
-	TipoTareaService tipoTareaService;
 	
 	
 	//GET   http://localhost:8085/tareas/1
@@ -63,7 +64,7 @@ public class TareaRestController {
 	@GetMapping(path = "/") 
 	public ResponseEntity<List<TareaDTO>> buscarTareas(){
 		
-		List<Tarea> tareas = tareaService.buscarTareas();
+		Iterable<Tarea> tareas = tareaService.buscarTareas();
 		List<TareaDTO> tareasDTO = new ArrayList<TareaDTO>();
 		for (Tarea t : tareas) {
 			tareasDTO.add(new TareaDTO(t));
@@ -72,23 +73,28 @@ public class TareaRestController {
 	}
 	
 	
-	//POST 
-	@PostMapping(path = "/{idProyecto}/tareas")   //Le paso/le envío las variables por la URL 
-	
-	//podes combinar @PathVariable Long idProyecto (para enviarle el id por Url) y @RequestBody para enviarle el dato/los datos por el BODY.
-	 //http://localhost:8085/proyectos/1/idTarea ó body raw de tareaDto???????  
-	public ResponseEntity<TareaDTO> guardarTarea(@PathVariable Long idProyecto, @RequestBody TareaDTO tareaDTO){
+	//PUT //Asignar una tarea al proyecto | //http://localhost:8085/tareas/1/agregar-tarea/2
+	@PutMapping(path = "/{idProyecto}/agregar-tarea/{idTarea}")   	
+	 
+	public ResponseEntity<Long> agregarTareaAlProyecto(@PathVariable Long idProyecto, @PathVariable Long idTarea){
 		
-		Tarea tarea = new Tarea();
-		tarea.setHorasAsignadas(tareaDTO.getHorasAsignadasTarea());
-		tareaService.guardarTarea(tarea);
-		
-		return ResponseEntity.status(HttpStatus.CREATED).body(tareaDTO);
+		proyectoService.asignarTareaAlProyecto(idProyecto, idTarea);
+		ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		return ResponseEntity.ok(idProyecto);
 	}
+	
+	//PUT     http://localhost:8085/tareas/1/agregar-usuario/5
+	@PutMapping(path = "/{idTarea}/agregar-usuario/{idUsuario}")
+	public ResponseEntity <Long> asignarUsuario(@PathVariable Long idTarea ,@PathVariable Long idUsuario){
+		
+		tareaService.agregarUsuarioTarea(idTarea, idUsuario);
+		ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		return  ResponseEntity.ok(idTarea);
+	}
+	
+	
+	
 			
-	
-	
-	
 	
 	
 }

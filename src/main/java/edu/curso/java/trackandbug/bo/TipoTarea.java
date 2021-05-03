@@ -11,7 +11,7 @@ public class TipoTarea {
 	@GeneratedValue
 	private Long idTipoTarea;
 	
-	@Column(nullable = false, length = 200)
+	//@Column(nullable = false, length = 200)
 	private String nombreTipoTarea;
 
 	
@@ -62,6 +62,8 @@ public class TipoTarea {
 			return false;
 		return true;
 	}
+
+	
 	
 	
 	
